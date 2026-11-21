@@ -156,27 +156,112 @@
   pointer-events: auto;
 }
 
-@media (max-width: 900px) {
-  .site-header {
-    --ticket-width: 220px;
-    --side: 24px;
-  }
-}
-
-@media (max-width: 600px) {
-  .site-header {
-    --ticket-width: 180px;
-    --side: 16px;
-  }
-
-  .ticket-links a {
-    font-size: 18px;
-  }
-}
-
 @media (prefers-reduced-motion: reduce) {
   .ticket-swing.idle,
   .ticket-swing.settle {
     animation: none;
+  }
+}
+
+/* ===== RESPONSIVE ===== */
+
+/* 1) Smaller laptop: 1025px - 1365px */
+@media (min-width: 1025px) and (max-width: 1365px) {
+  .site-header {
+    --ticket-width: 260px;
+    --side: 60px;
+  }
+
+  .header-actions {
+    top: 24px;
+    gap: 10px;
+  }
+
+  .sound-btn {
+    width: 46px;
+    height: 46px;
+  }
+
+  .sound-btn img {
+    width: 22px;
+    height: 22px;
+  }
+
+  .ticket {
+    margin-top: -30px;
+  }
+
+  .ticket-links a {
+    font-size: 21px;
+  }
+}
+
+/* 2) Tablet: 600px - 1024px */
+@media (min-width: 600px) and (max-width: 1024px) {
+  .site-header {
+    --ticket-width: 210px;
+    --side: 28px;
+  }
+
+  .header-actions {
+    top: 20px;
+    gap: 8px;
+  }
+
+  .sound-btn {
+    width: 42px;
+    height: 42px;
+    box-shadow: 0 3px 0 var(--red-dark), 0 6px 10px rgba(0, 0, 0, 0.25);
+  }
+
+  .sound-btn img {
+    width: 20px;
+    height: 20px;
+  }
+
+  .ticket {
+    margin-top: -26px;
+  }
+
+  .ticket-links a {
+    font-size: 17px;
+  }
+}
+
+/* 3) Mobile: 320px - 430px (rotated canvas) */
+@media (min-width: 320px) and (max-width: 430px) {
+  .site-header {
+    --ticket-width: 140px;
+    --side: 14px;
+  }
+
+  .header-actions {
+    top: 12px;
+    gap: 6px;
+  }
+
+  .sound-btn {
+    width: 34px;
+    height: 34px;
+    border-width: 1.5px;
+    box-shadow: 0 2px 0 var(--red-dark), 0 4px 8px rgba(0, 0, 0, 0.25);
+  }
+
+  .sound-btn img {
+    width: 16px;
+    height: 16px;
+  }
+
+  .ticket {
+    margin-top: -20px;
+  }
+
+  .ticket-img {
+    filter: drop-shadow(0 6px 8px rgba(0, 0, 0, 0.3));
+  }
+
+  .ticket-links a {
+    font-size: 12px;
+    letter-spacing: 0.2px;
   }
 }

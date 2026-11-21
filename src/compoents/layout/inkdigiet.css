@@ -1,4 +1,3 @@
-
 .ink-digit {
   --lv: 2000px;
   --amp: 18px;
@@ -37,32 +36,29 @@
   cursor: default;
 }
 
-@media (max-width: 1600px) {
+/* ===== RESPONSIVE ===== */
+/* 670px digit at 1366px wide = 49.05vw; scaled x0.96 for safety. Wave height scales with the glyph. */
+
+/* 1) Smaller laptop: 1025px - 1365px */
+@media (min-width: 1025px) and (max-width: 1365px) {
   .ink-digit {
-    font-size: 686px;
+    --amp: 0.0269em;
+    font-size: 47.08vw;
   }
 }
 
-@media (max-width: 1440px) {
+/* 2) Tablet: 600px - 1024px */
+@media (min-width: 600px) and (max-width: 1024px) {
   .ink-digit {
-    font-size: 618px;
+    --amp: 0.0269em;
+    font-size: 47.08vw;
   }
 }
 
-@media (max-width: 1024px) {
+/* 3) Mobile: 320px - 430px (rotated canvas: width = 100vh) */
+@media (min-width: 320px) and (max-width: 430px) {
   .ink-digit {
-    font-size: 439px;
-  }
-}
-
-@media (max-width: 768px) {
-  .ink-digit {
-    font-size: 330px;
-  }
-}
-
-@media (max-width: 480px) {
-  .ink-digit {
-    font-size: 206px;
+    --amp: 0.0269em;
+    font-size: 39.2vh;
   }
 }

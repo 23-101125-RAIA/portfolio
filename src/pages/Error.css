@@ -1,5 +1,3 @@
-
-
 .error-wrapper {
   min-height: 100vh;
   background-color: #fff3da;
@@ -59,85 +57,96 @@
       margin-bottom: 180px;
 }
 
-@media (max-width: 1600px) {
+/* ===== RESPONSIVE ===== */
+/* --u = one "desktop pixel" scaled to the current width (desktop reference = 1366px) */
+
+/* 1) Smaller laptop: 1025px - 1365px */
+@media (min-width: 1025px) and (max-width: 1365px) {
   .error-page {
-    gap: 89px;
-    margin-bottom: -167px;
+    --u: calc(100vw * 0.96 / 1366);
+    gap: calc(107 * var(--u));
+    padding: calc(200 * var(--u)) calc(100 * var(--u)) 0;
+    margin-bottom: calc(-200 * var(--u));
   }
 
-  .error-code {
-    gap: 14px;
-  }
-
-  .error-clock {
-    height: 665px;
-  }
-}
-
-@media (max-width: 1440px) {
-  .error-page {
-    gap: 80px;
-    padding: 200px 100px 0;
-    margin-bottom: -150px;
-  }
-
-  .error-code {
-    gap: 12px;
-  }
-
-  .error-clock {
-    height: 599px;
-  }
-}
-
-@media (max-width: 1024px) {
-  .error-page {
-    gap: 57px;
-    padding: 170px 40px 0;
-    margin-bottom: -107px;
-  }
-
-  .error-code {
-    gap: 9px;
-  }
-
-  .error-clock {
-    height: 426px;
-  }
-}
-
-@media (max-width: 768px) {
-  .error-page {
-    gap: 43px;
-    padding: 140px 20px 0;
-    margin-bottom: -80px;
+  .error-message {
+    gap: 18px;
   }
 
   .error-text {
-    max-width: 320px;
+    font-size: clamp(16px, 1.76vw, 24px);
   }
 
   .error-code {
-    gap: 7px;
+    gap: calc(16 * var(--u));
   }
 
   .error-clock {
-    height: 320px;
+    height: calc(700 * var(--u));
+    margin-bottom: calc(180 * var(--u));
+    filter: drop-shadow(0 12px 14px rgba(0, 0, 0, 0.28));
   }
 }
 
-@media (max-width: 480px) {
+/* 2) Tablet: 600px - 1024px */
+@media (min-width: 600px) and (max-width: 1024px) {
   .error-page {
-    gap: 27px;
-    padding: 120px 12px 0;
-    margin-bottom: -50px;
+    --u: calc(100vw * 0.96 / 1366);
+    gap: calc(107 * var(--u));
+    padding: calc(200 * var(--u)) calc(60 * var(--u)) 0;
+    margin-bottom: calc(-200 * var(--u));
+  }
+
+  .error-message {
+    gap: 14px;
+  }
+
+  .error-text {
+    max-width: 360px;
+    font-size: clamp(14px, 2.4vw, 22px);
   }
 
   .error-code {
-    gap: 4px;
+    gap: calc(16 * var(--u));
   }
 
   .error-clock {
-    height: 200px;
+    height: calc(700 * var(--u));
+    margin-bottom: calc(180 * var(--u));
+    filter: drop-shadow(0 8px 10px rgba(0, 0, 0, 0.28));
+  }
+}
+
+/* 3) Mobile: 320px - 430px (rotated canvas: width = 100vh, height = 100vw) */
+@media (min-width: 320px) and (max-width: 430px) {
+  .error-wrapper {
+    min-height: 100vw;
+  }
+
+  .error-page {
+    --u: calc(100vh * 0.8 / 1366);
+    min-height: 100vw;
+    gap: calc(107 * var(--u));
+    padding: calc(200 * var(--u)) calc(100 * var(--u)) 0;
+    margin-bottom: calc(-200 * var(--u));
+  }
+
+  .error-message {
+    gap: 8px;
+  }
+
+  .error-text {
+    max-width: 300px;
+    font-size: 12px;
+  }
+
+  .error-code {
+    gap: calc(16 * var(--u));
+  }
+
+  .error-clock {
+    height: calc(700 * var(--u));
+    margin-bottom: calc(180 * var(--u));
+    filter: drop-shadow(0 5px 6px rgba(0, 0, 0, 0.28));
   }
 }

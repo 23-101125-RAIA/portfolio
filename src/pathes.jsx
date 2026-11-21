@@ -4,6 +4,9 @@ import Entrygate from './pages/entrygate';
 import PreloaderProvider from './compoents/layout/PreloaderProvider';
 import Preloader from './pages/Preloader';
 import Error from './pages/Error';
+import Code from './pages/CreativeCode';
+import Faq from './pages/Faq';
+import Privacy from './pages/Privacy';
 
 
 
@@ -24,12 +27,12 @@ const Routess = () => {
           {/* <Route path="/projects" element={<Projects />} /> */}
           {/* <Route path="/project-details" element={<ProjectDetails />} /> */}
           {/* <Route path="/tools" element={<Tools />} /> */}
-          {/* <Route path="/creative-code" element={<CreativeCode />} /> */}
+          <Route path="/experiments" element={<Code />} />
           {/* <Route path="/about" element={<About />} /> */}
           {/* <Route path="/exhibition-history" element={<ExhibitionHistory />} /> */}
           {/* <Route path="/contact" element={<Contact />} /> */}
-          {/* <Route path="/faq" element={<FAQ />} /> */}
-          {/* <Route path="/privacy" element={<Privacy />} /> */}
+          <Route path="/faq" element={<Faq />} />
+          <Route path="/privacy" element={<Privacy />} />
         </Routes>
       </PreloaderProvider>
     </BrowserRouter>
