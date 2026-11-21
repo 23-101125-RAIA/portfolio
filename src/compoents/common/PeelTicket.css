@@ -1,0 +1,49 @@
+
+.peel {
+    --peel-width: 100%;
+    --peel-max-width: 100%;
+    --peel-aspect-ratio: 2000 / 1100;
+    --peel-margin: 0;
+
+    position: relative;
+    width: var(--peel-width);
+    max-width: var(--peel-max-width);
+    aspect-ratio: var(--peel-aspect-ratio);
+    margin: var(--peel-margin);
+    cursor: grab;
+    touch-action: none;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+.peel.is-dragging {
+    cursor: grabbing;
+}
+
+.peel svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+}
+
+@media (max-width: 1024px) {
+    .peel {
+        --peel-width: 100%;
+        --peel-max-width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+    .peel {
+        --peel-width: 100%;
+        --peel-max-width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .peel {
+        --peel-width: 100%;
+        --peel-max-width: 100%;
+    }
+}
