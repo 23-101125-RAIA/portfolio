@@ -47,3 +47,21 @@
         --peel-max-width: 100%;
     }
 }
+.peel {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1741 / 1037;
+    cursor: grab;
+    touch-action: none;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+.peel.is-dragging {
+    cursor: grabbing;
+}
+
+.peel svg {
+    display: block;
+    overflow: visible;
+}

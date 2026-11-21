@@ -1,0 +1,111 @@
+.vintage-btn {
+  --red: #9a0004;
+  --red-dark: #440103;
+  --cream: #fff3da;
+  --gold: #620002;
+  position: relative;
+  isolation: isolate;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  height: 50px;
+  padding: 0 40px;
+  font-family: 'Philosopher', serif;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1;
+  white-space: nowrap;
+  text-decoration: none;
+  color: var(--cream);
+  background: var(--red);
+  border: 2px solid var(--red-dark);
+  border-radius: 999px;
+  cursor: pointer;
+  overflow: hidden;
+  box-shadow: 0 4px 0 var(--red-dark), 0 8px 12px rgba(0, 0, 0, 0.25);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.vintage-btn::after {
+  content: '';
+  position: absolute;
+  inset: 5px;
+  border: 1px dashed rgba(255, 243, 218, 0.55);
+  border-radius: 999px;
+  pointer-events: none;
+  z-index: 1;
+  transition: border-color 0.4s ease 0.15s;
+}
+
+.vintage-btn__wave {
+  position: absolute;
+  left: 50%;
+  top: 108%;
+  width: 240%;
+  aspect-ratio: 1;
+  border-radius: 42%;
+  transform: translateX(-50%);
+  z-index: -1;
+  transition: top 1s cubic-bezier(0.2, 0.8, 0.2, 1);
+  animation: vintageWave 7s linear infinite;
+}
+
+.vintage-btn__wave--gold {
+  background: var(--gold);
+}
+
+.vintage-btn__wave--cream {
+  background: var(--cream);
+  transition-delay: 0.14s;
+  animation-duration: 9s;
+  animation-direction: reverse;
+}
+
+.vintage-btn__label {
+  position: relative;
+  z-index: 2;
+  transition: color 0.35s ease 0.2s, text-shadow 0.35s ease 0.2s;
+}
+
+.vintage-btn:hover,
+.vintage-btn:focus-visible {
+  transform: translateY(-2px);
+}
+
+.vintage-btn:hover .vintage-btn__wave,
+.vintage-btn:focus-visible .vintage-btn__wave {
+  top: -110%;
+}
+
+.vintage-btn:hover .vintage-btn__label,
+.vintage-btn:focus-visible .vintage-btn__label {
+  color: var(--red-dark);
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.6);
+}
+
+.vintage-btn:hover::after,
+.vintage-btn:focus-visible::after {
+  border-color: rgba(107, 0, 3, 0.55);
+}
+
+.vintage-btn:focus-visible {
+  outline: 2px dashed var(--gold);
+  outline-offset: 4px;
+}
+
+.vintage-btn:active {
+  transform: translateY(3px);
+  box-shadow: 0 1px 0 var(--red-dark), 0 3px 6px rgba(0, 0, 0, 0.25);
+}
+
+@keyframes vintageWave {
+  from { transform: translateX(-50%) rotate(0deg); }
+  to { transform: translateX(-50%) rotate(360deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vintage-btn__wave {
+    animation: none;
+  }
+}

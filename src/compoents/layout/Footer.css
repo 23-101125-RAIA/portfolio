@@ -1,0 +1,149 @@
+.site-footer {
+  --green: #1f5c3e;
+  display: grid;
+  width: 100%;
+  overflow: hidden;
+  font-family: 'Philosopher', serif;
+  color: #fff;
+}
+
+.footer-flowers {
+  grid-area: 1 / 1;
+  align-self: end;
+  display: block;
+  width: auto;
+  height: auto;
+  pointer-events: none;
+}
+
+.footer-card {
+  position: relative;
+  isolation: isolate;
+  grid-area: 1 / 1;
+  align-self: end;
+  margin: 0 3% 0;
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: start;
+  gap: 32px;
+  padding: 56px 80px 32px;
+  background-color: var(--green);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.footer-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: var(--texture);
+  background-size: cover;
+  background-position: center;
+  opacity: 0.2;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.footer-chat h4,
+.footer-quick h4 {
+  margin: 0 0 14px;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.footer-email,
+.footer-quick a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 18px;
+}
+
+.footer-email:hover,
+.footer-quick a:hover {
+  text-decoration: underline;
+}
+
+.footer-socials {
+  display: flex;
+  gap: 14px;
+  margin-top: 18px;
+}
+
+.footer-socials img {
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+  display: block;
+  transition: transform 0.2s ease;
+}
+
+.footer-socials a:hover img {
+  transform: translateY(-3px);
+}
+
+.footer-logo {
+  align-self: start;
+  justify-self: center;
+  margin-top: -8px;
+}
+
+.footer-logo img {
+  display: block;
+  height: 150px;
+  width: auto;
+  object-fit: contain;
+}
+
+.footer-quick {
+  justify-self: end;
+}
+
+.footer-quick ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.footer-copy {
+  grid-column: 1 / -1;
+  margin: 8px 0 0;
+  text-align: center;
+  font-size: 16px;
+  letter-spacing: 0.5px;
+}
+
+@media (max-width: 900px) {
+  .footer-card {
+    padding: 40px 32px 24px;
+  }
+
+  .footer-logo img {
+    height: 110px;
+  }
+}
+
+@media (max-width: 700px) {
+  .footer-card {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    text-align: center;
+    margin: 0 4% 20px;
+  }
+
+  .footer-logo {
+    order: -1;
+    margin-top: 0;
+  }
+
+  .footer-socials {
+    justify-content: center;
+  }
+
+  .footer-quick {
+    justify-self: center;
+  }
+}

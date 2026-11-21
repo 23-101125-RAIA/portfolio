@@ -1,5 +1,5 @@
-
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import tearSound from '../../assets/audio/tanweraman-paper-rip-fast-252617.mp3';
 import './PeelTicket.css';
 
 const W = 2000;
@@ -11,14 +11,23 @@ const STRIP_H = (BOTTOM - TOP) / STRIPS;
 const PULL_RANGE = 450;
 const BEND_RANGE = 280;
 const TEAR_POINT = 0.55;
+const FLY_MS = 1000;
+const LEFT_DELAY_MS = 450;
+const LEFT_FALL_MS = 1200;
+const TEAR_NOTIFY_MS = 1300;
 
 const lineX = (y) => 1153 - 0.0594 * (y - 192);
 const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
 const ease = (t) => 1 - Math.pow(1 - t, 3);
+const linear = (t) => t;
+
+const STUB_CENTER_X = (lineX(BOTTOM) + W) / 2;
+const STUB_CENTER_Y = (TOP + BOTTOM) / 2;
 
 const makeEdge = () => {
     const points = [];
     let seed = 7;
+
     const random = () => {
         seed = (seed * 16807) % 2147483647;
         return seed / 2147483647;
@@ -33,50 +42,115 @@ const makeEdge = () => {
 
 const PeelTicket = ({ src, alt, onGrab, onTear }) => {
     const edge = useMemo(makeEdge, []);
+
     const [progress, setProgress] = useState(0);
     const [fly, setFly] = useState(0);
+    const [leftFall, setLeftFall] = useState(0);
     const [dragging, setDragging] = useState(false);
 
     const wrapRef = useRef(null);
     const dragRef = useRef(null);
-    const frameRef = useRef(0);
+    const framesRef = useRef({});
     const progressRef = useRef(0);
+    const soundRef = useRef(null);
+    const tearTimerRef = useRef(null);
+    const leftTimerRef = useRef(null);
 
     progressRef.current = progress;
 
-    const stop = () => cancelAnimationFrame(frameRef.current);
+    useEffect(() => {
+        soundRef.current = new Audio(tearSound);
+        soundRef.current.loop = false;
+        soundRef.current.preload = 'auto';
 
-    const tween = useCallback((from, to, duration, setter, done) => {
-        stop();
+        return () => {
+            if (soundRef.current) {
+                soundRef.current.pause();
+                soundRef.current = null;
+            }
+        };
+    }, []);
+
+    const playSound = useCallback(() => {
+        const audio = soundRef.current;
+
+        if (!audio || !audio.paused || audio.ended) return;
+
+        audio.play().catch((error) => {
+            console.error('Unable to play tearing sound:', error);
+        });
+    }, []);
+
+    const pauseSound = useCallback(() => {
+        const audio = soundRef.current;
+
+        if (audio && !audio.paused) {
+            audio.pause();
+        }
+    }, []);
+
+    const stopSound = useCallback(() => {
+        const audio = soundRef.current;
+
+        if (audio) {
+            audio.pause();
+            audio.currentTime = 0;
+        }
+    }, []);
+
+    const stop = () => Object.values(framesRef.current).forEach((id) => cancelAnimationFrame(id));
+
+    const tween = useCallback((from, to, duration, setter, done, key = 'main', easing = ease) => {
+        cancelAnimationFrame(framesRef.current[key]);
 
         const start = performance.now();
 
         const step = (now) => {
             const k = clamp((now - start) / duration, 0, 1);
 
-            setter(from + (to - from) * ease(k));
+            setter(from + (to - from) * easing(k));
 
             if (k < 1) {
-                frameRef.current = requestAnimationFrame(step);
+                framesRef.current[key] = requestAnimationFrame(step);
             } else if (done) {
                 done();
             }
         };
 
-        frameRef.current = requestAnimationFrame(step);
+        framesRef.current[key] = requestAnimationFrame(step);
     }, []);
 
     const finish = useCallback(() => {
+        pauseSound();
+
         tween(progressRef.current, 1, 260, setProgress, () => {
-            tween(0, 1, 1000, setFly, () => onTear?.());
+            stopSound();
+
+            tearTimerRef.current = setTimeout(() => onTear?.(), TEAR_NOTIFY_MS);
+
+            tween(0, 1, FLY_MS, setFly, null, 'fly', linear);
+
+            leftTimerRef.current = setTimeout(
+                () => tween(0, 1, LEFT_FALL_MS, setLeftFall, null, 'left', linear),
+                LEFT_DELAY_MS
+            );
         });
-    }, [tween, onTear]);
+    }, [tween, onTear, pauseSound, stopSound]);
 
     const springBack = useCallback(() => {
-        tween(progressRef.current, 0, 450, setProgress, () => onGrab?.(false));
-    }, [tween, onGrab]);
+        pauseSound();
 
-    useEffect(() => stop, []);
+        tween(progressRef.current, 0, 450, setProgress, () => onGrab?.(false));
+    }, [tween, onGrab, pauseSound]);
+
+    useEffect(() => {
+        return () => {
+            stop();
+            stopSound();
+            clearTimeout(tearTimerRef.current);
+            clearTimeout(leftTimerRef.current);
+        };
+    }, [stopSound]);
 
     const toImage = (e) => {
         const rect = wrapRef.current.getBoundingClientRect();
@@ -97,6 +171,7 @@ const PeelTicket = ({ src, alt, onGrab, onTear }) => {
         if (point.x < lineX(point.y) || point.y < 0 || point.y > H) return;
 
         stop();
+
         wrapRef.current.setPointerCapture(e.pointerId);
 
         dragRef.current = {
@@ -120,7 +195,11 @@ const PeelTicket = ({ src, alt, onGrab, onTear }) => {
         const dy = (e.clientY - drag.y) / drag.scale;
 
         if (Math.abs(dx) + Math.abs(dy) > 4) {
-            drag.moved = true;
+            if (!drag.moved) {
+                drag.moved = true;
+            }
+
+            playSound();
         }
 
         setProgress(
@@ -135,6 +214,8 @@ const PeelTicket = ({ src, alt, onGrab, onTear }) => {
         setDragging(false);
 
         if (!drag) return;
+
+        pauseSound();
 
         if (!drag.moved || progressRef.current > TEAR_POINT) {
             finish();
@@ -203,7 +284,17 @@ const PeelTicket = ({ src, alt, onGrab, onTear }) => {
         );
     };
 
-    const flyTransform = `translate(${fly * 300} ${fly * 870}) rotate(${fly * 38} ${lineX(BOTTOM)} ${BOTTOM})`;
+    const flySway = Math.sin(fly * Math.PI * 2.2);
+
+    const flyTransform = [
+        `translate(${flySway * 110} ${fly * fly * 1300})`,
+        `rotate(${flySway * 26} ${STUB_CENTER_X} ${STUB_CENTER_Y})`
+    ].join(' ');
+
+    const flyOpacity = 1 - clamp((fly - 0.85) / 0.15, 0, 1);
+
+    const leftTransform = `translate(0 ${leftFall * leftFall * 1600})`;
+    const leftOpacity = 1 - clamp((leftFall - 0.9) / 0.1, 0, 1);
 
     const tornEdge = edge
         .filter(([, y]) => y <= hinge)
@@ -258,26 +349,31 @@ const PeelTicket = ({ src, alt, onGrab, onTear }) => {
                     </filter>
                 </defs>
 
-                <image
-                    href={src}
-                    width={W}
-                    height={H}
-                    clipPath="url(#peel-main)"
-                />
-
-                {progress > 0 && (
-                    <polyline
-                        points={tornEdge}
-                        fill="none"
-                        stroke="#FFF3DA"
-                        strokeWidth="4"
-                        strokeLinejoin="round"
-                        opacity="0.85"
+                <g
+                    opacity={leftFall > 0 ? leftOpacity : 1}
+                    transform={leftFall > 0 ? leftTransform : undefined}
+                >
+                    <image
+                        href={src}
+                        width={W}
+                        height={H}
+                        clipPath="url(#peel-main)"
                     />
-                )}
+
+                    {progress > 0 && (
+                        <polyline
+                            points={tornEdge}
+                            fill="none"
+                            stroke="#FFF3DA"
+                            strokeWidth="4"
+                            strokeLinejoin="round"
+                            opacity="0.85"
+                        />
+                    )}
+                </g>
 
                 <g
-                    style={{ opacity: torn ? 1 - fly * fly : 1 }}
+                    opacity={torn ? flyOpacity : 1}
                     filter={progress > 0.02 ? 'url(#peel-shadow)' : undefined}
                     transform={torn ? flyTransform : undefined}
                 >

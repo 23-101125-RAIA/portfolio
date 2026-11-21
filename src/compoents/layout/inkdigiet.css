@@ -1,0 +1,68 @@
+
+.ink-digit {
+  --lv: 2000px;
+  --amp: 18px;
+  --ph: 0px;
+  display: inline-block;
+  padding: 0.1em 0;
+  margin: -0.1em 0;
+  font-family: 'Aestera', serif;
+  font-size: 670px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.2;
+  color: transparent;
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 20' preserveAspectRatio='none'%3E%3Cpath d='M0 10 Q25 0 50 10 T100 10 V20 H0 Z' fill='%23620002'/%3E%3C/svg%3E"),
+    linear-gradient(#620002, #620002),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 20' preserveAspectRatio='none'%3E%3Cpath d='M0 10 Q25 0 50 10 T100 10 V20 H0 Z' fill='%23fff3da'/%3E%3C/svg%3E"),
+    linear-gradient(#fff3da, #fff3da),
+    linear-gradient(#9a0004, #9a0004);
+  background-repeat: repeat-x, no-repeat, repeat-x, no-repeat, no-repeat;
+  background-size:
+    0.5em var(--amp),
+    100% 100%,
+    0.5em var(--amp),
+    100% 100%,
+    100% 100%;
+  background-position:
+    var(--ph) calc(var(--lv) - var(--amp) + 1px),
+    0 var(--lv),
+    calc(var(--ph) * -0.6 + 90px) calc(var(--lv) - var(--amp) - 13px),
+    0 calc(var(--lv) - 14px),
+    0 0;
+  -webkit-background-clip: text;
+  background-clip: text;
+  user-select: none;
+  cursor: default;
+}
+
+@media (max-width: 1600px) {
+  .ink-digit {
+    font-size: 686px;
+  }
+}
+
+@media (max-width: 1440px) {
+  .ink-digit {
+    font-size: 618px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .ink-digit {
+    font-size: 439px;
+  }
+}
+
+@media (max-width: 768px) {
+  .ink-digit {
+    font-size: 330px;
+  }
+}
+
+@media (max-width: 480px) {
+  .ink-digit {
+    font-size: 206px;
+  }
+}

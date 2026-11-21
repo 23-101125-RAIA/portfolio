@@ -1,0 +1,143 @@
+
+
+.error-wrapper {
+  min-height: 100vh;
+  background-color: #fff3da;
+  background-image: url('../assets/imgs/bg-pattern.png');
+  background-size: contain;
+  background-repeat: repeat;
+}
+
+.error-page {
+  position: relative;
+  min-height: 100vh;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 107px;
+  padding: 200px 200px 0;
+  margin-bottom: -200px;
+}
+
+.error-message {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.error-text {
+  max-width: 430px;
+  margin: 0;
+  color: #000;
+  text-align: center;
+  font-family: Philosopher, serif;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+
+.error-code {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  font-weight: 400;
+}
+
+.error-clock {
+  display: block;
+  flex-shrink: 0;
+  height: 700px;
+  width: auto;
+  user-select: none;
+  filter: drop-shadow(0 14px 16px rgba(0, 0, 0, 0.28));
+      margin-bottom: 180px;
+}
+
+@media (max-width: 1600px) {
+  .error-page {
+    gap: 89px;
+    margin-bottom: -167px;
+  }
+
+  .error-code {
+    gap: 14px;
+  }
+
+  .error-clock {
+    height: 665px;
+  }
+}
+
+@media (max-width: 1440px) {
+  .error-page {
+    gap: 80px;
+    padding: 200px 100px 0;
+    margin-bottom: -150px;
+  }
+
+  .error-code {
+    gap: 12px;
+  }
+
+  .error-clock {
+    height: 599px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .error-page {
+    gap: 57px;
+    padding: 170px 40px 0;
+    margin-bottom: -107px;
+  }
+
+  .error-code {
+    gap: 9px;
+  }
+
+  .error-clock {
+    height: 426px;
+  }
+}
+
+@media (max-width: 768px) {
+  .error-page {
+    gap: 43px;
+    padding: 140px 20px 0;
+    margin-bottom: -80px;
+  }
+
+  .error-text {
+    max-width: 320px;
+  }
+
+  .error-code {
+    gap: 7px;
+  }
+
+  .error-clock {
+    height: 320px;
+  }
+}
+
+@media (max-width: 480px) {
+  .error-page {
+    gap: 27px;
+    padding: 120px 12px 0;
+    margin-bottom: -50px;
+  }
+
+  .error-code {
+    gap: 4px;
+  }
+
+  .error-clock {
+    height: 200px;
+  }
+}

@@ -1,27 +1,20 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from 'react';
 import PeelTicket from '../compoents/common/PeelTicket';
+import { usePreloader } from '../compoents/layout/PreloaderProvider';
 import ticket from '../assets/imgs/ticket.png';
 import './entrygate.css';
 import '../genarel.css';
 
-const LEAVE_DELAY = 800;
+const GALLERY_PATH = '/gallery';
 
 const Entrygate = () => {
-    const navigate = useNavigate();
+    const { go } = usePreloader();
     const [grabbed, setGrabbed] = useState(false);
-    const [leaving, setLeaving] = useState(false);
-    const timerRef = useRef(null);
 
-    useEffect(() => () => clearTimeout(timerRef.current), []);
-
-    const handleTear = () => {
-        setLeaving(true);
-        timerRef.current = setTimeout(() => navigate('/preloader'), LEAVE_DELAY);
-    };
+    const handleTear = () => go(GALLERY_PATH, 'Gallery');
 
     return (
-        <div className={`bk entrygate${leaving ? ' is-leaving' : ''}`}>
+        <div className="bk entrygate">
             <div className="entrygate-ticket">
                 <PeelTicket src={ticket} alt="Digital portfolio ticket, tear to enter" onGrab={setGrabbed} onTear={handleTear} />
             </div>

@@ -1,6 +1,54 @@
 @font-face {
-font-family: "Aestera - Personal use";
-  src: url('./assets/font/Aestera.ttf') format('truetype');
-  
+  font-family: "Aestera";
+  src: url("./assets/font/Aestera.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
 }
 
+.bkk{
+    --pattern-size: 240px;
+  min-height: 100vh;
+  background-color: #fff3da;
+  background-image: url('./assets/imgs/bg-pattern.png');
+  background-size:  cover;
+  background-repeat: repeat;
+}
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+        background-color: #FFF3DA;
+
+}
+
+body {
+    width: 100%;
+    overflow-x: hidden;
+        background-color: #FFF3DA;
+
+}
+
+::-webkit-scrollbar {
+    width: 15px;
+}
+
+::-webkit-scrollbar-track {
+    background-color:#fff0d4 ;
+}
+
+::-webkit-scrollbar-thumb {
+    background:#A47843 ;
+    border-radius: 10px ;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color:#8e683a ;
+}
+
+.no-underline-link {
+    text-decoration: none;
+}

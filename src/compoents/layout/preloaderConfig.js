@@ -1,12 +1,12 @@
 export const TOP_TEXT = 'TO PAGE';
 export const SLOT_COUNT = 8;
 export const CHARSET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-export const FLIP_MS = 110;
-export const FLIPS_PER_CHAR = 6;
-export const STAGGER_MS = 60;
+export const FLIP_MS = 200;
+export const FLIPS_PER_CHAR = 9;
+export const STAGGER_MS = 110;
+export const HOLD_MS = 2000;
 export const TOP_START_MS = 500;
 export const BOTTOM_START_MS = 750;
-export const HOLD_MS = 500;
 
 export const PAGE_NAMES = {
     '/': 'ENTRY GATE',
