@@ -1,0 +1,83 @@
+@import url('https://fonts.googleapis.com/css2?family=Philosopher:wght@700&display=swap');
+
+.bk {
+    background-color: #FFF3DA;
+    background-image: url('../asserts/imgs/bg-pattern.png');
+    background-size: 100% auto;
+    background-position: top center;
+    background-repeat: no-repeat;
+}
+
+.entrygate {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+    overflow: hidden;
+}
+
+.entrygate-ticket {
+    position: relative;
+    width: min(820px, 88vw);
+    aspect-ratio: 1741 / 1037;
+    will-change: transform;
+}
+
+.entrygate-left,
+.entrygate-right {
+    display: block;
+    width: 100%;
+    height: 100%;
+    user-select: none;
+    -webkit-user-drag: none;
+}
+
+.entrygate-right {
+    position: absolute;
+    inset: 0;
+    touch-action: none;
+}
+
+.entrygate-text {
+    margin: 0;
+    color: #A47843;
+    font-family: 'Philosopher', serif;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    text-align: center;
+    white-space: pre-wrap;
+    padding: 0 24px;
+}
+
+.entrygate-cursor {
+    display: inline-block;
+    width: 2px;
+    height: 1.1em;
+    margin-left: 3px;
+    vertical-align: text-bottom;
+    background: #A47843;
+    animation: entrygate-blink 0.8s steps(1) infinite;
+}
+
+@keyframes entrygate-blink {
+    50% {
+        background: transparent;
+    }
+}
+
+@media (max-width: 600px) {
+    .entrygate {
+        gap: 28px;
+    }
+
+    .entrygate-text {
+        font-size: 16px;
+    }
+}
