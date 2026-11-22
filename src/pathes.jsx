@@ -7,6 +7,7 @@ import Error from './pages/Error';
 import Code from './pages/CreativeCode';
 import Faq from './pages/Faq';
 import Privacy from './pages/Privacy';
+import Sitemap from './pages/Sitemap';
 
 
 
@@ -33,6 +34,7 @@ const Routess = () => {
           {/* <Route path="/contact" element={<Contact />} /> */}
           <Route path="/faq" element={<Faq />} />
           <Route path="/privacy" element={<Privacy />} />
+          <Route path="/SiteMap" element={<Sitemap />} />
         </Routes>
       </PreloaderProvider>
     </BrowserRouter>
