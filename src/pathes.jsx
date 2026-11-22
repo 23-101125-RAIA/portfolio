@@ -8,6 +8,7 @@ import Code from './pages/CreativeCode';
 import Faq from './pages/Faq';
 import Privacy from './pages/Privacy';
 import Sitemap from './pages/Sitemap';
+import Contact from './pages/Contact';
 
 
 
@@ -31,7 +32,7 @@ const Routess = () => {
           <Route path="/experiments" element={<Code />} />
           {/* <Route path="/about" element={<About />} /> */}
           {/* <Route path="/exhibition-history" element={<ExhibitionHistory />} /> */}
-          {/* <Route path="/contact" element={<Contact />} /> */}
+          <Route path="/contact" element={<Contact />} />
           <Route path="/faq" element={<Faq />} />
           <Route path="/privacy" element={<Privacy />} />
           <Route path="/SiteMap" element={<Sitemap />} />
