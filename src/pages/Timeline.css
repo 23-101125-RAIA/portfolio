@@ -1,26 +1,34 @@
-.tl-stage {
-  --tl-green: #1b5a3a;
-  --tl-red: #8f0a0a;
-  --tl-ink: #3a2a14;
-  --tl-clock: min(78vh, 52vw);
-  --tl-shift: -34%;
 
-  position: relative;
-  display: flex;
+
+.tl-stage {
+  --tl-green: #1C573A;
+  --tl-red: #8f0a0a;
+  --tl-clock: min(70vh, 40vw);
+  --tl-shift: -0.4;
+  --tl-title:60px;
+  --tl-text: 24px;
+
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
   align-items: center;
-  min-height: 88vh;
+  box-sizing: border-box;
+  min-height: calc(200px + var(--tl-clock) + 8vh);
+  padding-top: 200px;
   overflow: hidden;
 }
 
 .tl-paper {
-  position: absolute;
-  top: 8%;
-  left: 0;
-  width: 100%;
-  height: 84%;
-  object-fit: fill;
+  grid-area: 1 / 1;
+  position: relative;
+  z-index: 0;
+  justify-self: start;
+  align-self: center;
+  width: 120%;
+  height: calc(var(--tl-clock) * 0.9);
+  margin-left: -8%;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
   pointer-events: none;
-  user-select: none;
   animation: tl-paper-in 1.2s cubic-bezier(0.22, 1, 0.36, 1) 0.15s both;
 }
 
@@ -30,12 +38,14 @@
 }
 
 .tl-clock {
+  grid-area: 1 / 1;
   position: relative;
-  z-index: 1;
-  flex: none;
+  z-index: 2;
+  justify-self: start;
+  align-self: center;
   width: var(--tl-clock);
   aspect-ratio: 1;
-  margin-left: calc(var(--tl-clock) * var(--tl-shift) / 100%);
+  margin-left: calc(var(--tl-clock) * var(--tl-shift));
   filter: drop-shadow(0 14px 22px rgba(60, 35, 5, 0.32));
   animation: tl-clock-in 1.5s cubic-bezier(0.22, 1, 0.36, 1) 0.1s both;
 }
@@ -99,15 +109,19 @@
 }
 
 .tl-content {
+  grid-area: 1 / 1;
   position: relative;
-  z-index: 1;
-  flex: 1;
-  min-width: 0;
-  padding: 0 7vw 0 2vw;
+  z-index: 3;
+  justify-self: center;
+  align-self: center;
+  box-sizing: border-box;
+  width: min(72rem, 58vw);
+  text-align: left;
+  margin-left: 130px;
 }
 
 .tl-copy {
-  min-height: 11rem;
+  min-height: 12rem;
   transition: opacity 0.3s ease, filter 0.3s ease, transform 0.3s ease;
 }
 
@@ -119,9 +133,13 @@
 
 .tl-title {
   margin: 0;
-  font-size: clamp(1.7rem, 3.4vw, 2.8rem);
-  line-height: 1.15;
-  color: var(--tl-green);
+  color: #1C573A;
+  font-family: "Aestera - Personal use", serif;
+  font-size: var(--tl-title);
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  text-align: left;
 }
 
 .tl-title span {
@@ -136,27 +154,15 @@
   to   { opacity: 1; filter: blur(0);   transform: none; }
 }
 
-.tl-rule {
-  display: block;
-  width: min(22rem, 80%);
-  height: 2px;
-  margin: 0.7rem 0 1rem;
-  background: linear-gradient(90deg, var(--tl-red), rgba(143, 10, 10, 0));
-  transform-origin: left;
-  animation: tl-rule 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.5s both;
-}
-
-@keyframes tl-rule {
-  from { transform: scaleX(0); }
-  to   { transform: scaleX(1); }
-}
-
 .tl-text {
-  max-width: 46ch;
-  margin: 0;
-  font-size: 1.02rem;
-  line-height: 1.65;
-  color: var(--tl-ink);
+ 
+  color: #000;
+  font-family: Philosopher, serif;
+  font-size: var(--tl-text);
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  text-align: left;
 }
 
 .tl-text span {
@@ -179,13 +185,14 @@
 .tl-coins {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.7rem;
-  margin-top: 1.8rem;
+  justify-content: center;
+  gap: 0.8rem;
+  margin-top: 5.8rem;
 }
 
 .tl-coin {
-  width: 2.6rem;
-  height: 2.6rem;
+  width: 2.8rem;
+  height: 2.8rem;
   padding: 0;
   border: 0;
   border-radius: 50%;
@@ -237,13 +244,28 @@
 @media (max-width: 760px) {
   .tl-stage {
     --tl-clock: 92vw;
-    --tl-shift: 0%;
-    flex-direction: column;
-    padding: 6vh 0;
+    --tl-shift: 0;
+    --tl-title: 28px;
+    --tl-text: 18px;
+    grid-template-rows: auto auto;
+    padding-top: 120px;
+    min-height: 0;
+  }
+
+  .tl-paper {
+    grid-area: 1 / 1 / 3 / 2;
+    height: 100%;
+  }
+
+  .tl-clock {
+    grid-area: 1 / 1;
+    justify-self: center;
   }
 
   .tl-content {
-    padding: 3vh 8vw 0;
+    grid-area: 2 / 1;
+    width: 84vw;
+    padding: 4vh 0;
   }
 }
 
@@ -252,7 +274,6 @@
   .tl-clock,
   .tl-title span,
   .tl-text span,
-  .tl-rule,
   .tl-coin {
     animation: none;
     opacity: 1;

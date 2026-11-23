@@ -5,26 +5,27 @@
   --cream: #f7e8c8;
   position: relative;
   overflow-x: clip;
-  padding-bottom: clamp(60px, 8vw, 140px);
+  padding-bottom: 140px;
 }
 
 .about-hero {
-  --locket-width: clamp(170px, 17vw, 300px);
-  --locket-top: -90px;
+  --locket-width: 380px;
+  --hero-padding: 200px;
   position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: calc(var(--locket-width) * 1.5 + var(--locket-top) - 20px) 16px 0;
+  padding: var(--hero-padding) 16px 0;
 }
 
 .about-locket {
-  position: absolute;
-  top: var(--locket-top);
-  left: 0;
-  right: 0;
+  position: relative;
   display: flex;
   justify-content: center;
+  width: 100%;
+  margin-top: calc(var(--hero-padding) * -1);
+  padding-bottom: 30px;
+  overflow: hidden;
   z-index: 1;
   pointer-events: none;
   animation: locketDrop 1.3s cubic-bezier(0.22, 0.9, 0.3, 1) both;
@@ -32,8 +33,11 @@
 
 .about-locket__swing {
   display: block;
+  flex-shrink: 0;
   width: var(--locket-width);
+  max-width: none;
   height: auto;
+  margin-top: -120px;
   transform-origin: 50% 0;
   filter: drop-shadow(0 14px 14px rgba(40, 25, 5, 0.3));
   animation:
@@ -43,8 +47,9 @@
 
 .about-flower {
   position: absolute;
-  top: 0;
-  width: clamp(110px, 20vw, 340px);
+    top: 260px;
+    width: 410px;
+
   z-index: 1;
   pointer-events: none;
 }
@@ -77,8 +82,8 @@
 
 .about-ribbon {
   position: absolute;
-  top: 46%;
-  width: clamp(100px, 17vw, 300px);
+ 
+  width: 760px;
   z-index: 0;
   pointer-events: none;
 }
@@ -91,44 +96,92 @@
 
 .about-ribbon--left {
   left: 0;
+   top: 55%;
   animation: slideFromLeft 1.3s cubic-bezier(0.2, 0.8, 0.2, 1) 0.9s both;
 }
 
 .about-ribbon--right {
   right: 0;
+   top: 52%;
   animation: slideFromRight 1.3s cubic-bezier(0.2, 0.8, 0.2, 1) 0.9s both;
 }
 
-.about-title {
+.about-title-wrap {
   position: relative;
-  z-index: 3;
-  margin: 0 0 -0.55em;
+  z-index: 1;
+  margin: 10px 0 0;
+  animation: fadeDown 1s ease-out 0.7s both;
+}
+
+.about-title {
+  margin: 0;
   color: var(--green-dark);
   text-align: center;
   font-family: 'Aestera - Personal use';
-  font-size: clamp(34px, 4.3vw, 62.404px);
+  font-size: 70px;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
-  animation: fadeDown 1s ease-out 0.7s both;
 }
 
 .about-title__accent {
   color: var(--green-light);
 }
 
+.about-star {
+  position: absolute;
+  width: 60px;
+  height: auto;
+  pointer-events: none;
+  animation: starShine 2.6s ease-in-out infinite;
+}
+
+.about-star--left {
+  left: -76px;
+  bottom: -26px;
+}
+
+.about-star--right {
+  right: -70px;
+  top: -30px;
+  animation-delay: 1.3s;
+}
+
 .about-frame {
   position: relative;
   z-index: 2;
   box-sizing: border-box;
-  width: min(100%, 760px);
-  padding: clamp(60px, 9vw, 130px) clamp(52px, 10vw, 150px);
+  width: 1100px;
+  margin-top: -71px;
+  padding: 190px 150px;
+  animation: framePop 1.1s cubic-bezier(0.2, 0.9, 0.3, 1.25) 1s both;
+}
+
+.about-frame__paper {
+  position: absolute;
+  inset: 12% 13%;
+  z-index: 1;
+  background: var(--cream);
+  box-shadow: inset 0 0 30px rgba(120, 80, 20, 0.25);
+}
+
+.about-frame__image {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+  pointer-events: none;
+}
+
+.about-frame__content {
+  position: relative;
+  z-index: 3;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: clamp(20px, 2.6vw, 38px);
-  background: url('../assets/about/frame.png') center / 100% 100% no-repeat;
-  animation: framePop 1.1s cubic-bezier(0.2, 0.9, 0.3, 1.25) 1s both;
+  gap: 32px;
 }
 
 .about-frame__text {
@@ -136,7 +189,7 @@
   color: #000;
   text-align: center;
   font-family: Sofia;
-  font-size: clamp(14px, 1.7vw, 24px);
+  font-size: 20px;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
@@ -144,9 +197,10 @@
 
 .about-frame__actions {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   justify-content: center;
-  gap: clamp(12px, 1.8vw, 26px);
+  align-items: center;
+  gap: 24px;
 }
 
 .about-values {
@@ -155,19 +209,31 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: clamp(60px, 8vw, 130px);
+  margin-top: 130px;
   padding: 0 16px;
 }
 
 .about-values__title {
-  margin: 0 0 clamp(36px, 5vw, 80px);
+  margin: 0 0 16px;
   color: var(--green-dark);
   text-align: center;
   font-family: 'Aestera - Personal use';
-  font-size: clamp(30px, 3.1vw, 45px);
+  font-size: 45px;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
+  opacity: 0;
+}
+
+.about-values__subtitle {
+  margin: 0 0 80px;
+color: #000;
+text-align: center;
+font-family: Philosopher;
+font-size: 24px;
+font-style: normal;
+font-weight: 400;
+line-height: normal;;
   opacity: 0;
 }
 
@@ -175,17 +241,21 @@
   animation: fadeUp 0.9s ease-out both;
 }
 
+.about-values.is-visible .about-values__subtitle {
+  animation: fadeUp 0.9s ease-out 0.15s both;
+}
+
 .about-cards {
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  gap: clamp(14px, 3.4vw, 56px);
+  gap: 48px;
   width: 100%;
 }
 
 .about-card {
-  width: clamp(120px, 22vw, 290px);
-  aspect-ratio: 0.6;
+  width: 360px;
+  aspect-ratio: 0.69;
   perspective: 1400px;
   outline: none;
   opacity: 0;
@@ -193,7 +263,7 @@
 
 .about-card--1,
 .about-card--3 {
-  margin-top: clamp(24px, 4vw, 64px);
+  margin-top: 64px;
 }
 
 .about-values.is-visible .about-card--1 {
@@ -251,11 +321,6 @@
   position: absolute;
   inset: 0;
   box-sizing: border-box;
-  overflow: hidden;
-  border: clamp(4px, 0.45vw, 7px) solid var(--gold);
-  border-radius: clamp(14px, 1.6vw, 24px);
-  background: var(--cream);
-  box-shadow: 0 10px 22px rgba(60, 35, 5, 0.3);
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
 }
@@ -264,7 +329,7 @@
   display: block;
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: fill;
 }
 
 .about-card__back {
@@ -272,19 +337,15 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: clamp(6px, 1vw, 16px);
-  padding: clamp(10px, 1.6vw, 26px);
+  gap: 14px;
+  padding: 30px;
+  overflow: hidden;
+  border: 7px solid var(--gold);
+  border-radius: 24px;
+  background: var(--cream);
+  box-shadow: 0 10px 22px rgba(60, 35, 5, 0.3);
   text-align: center;
   transform: rotateY(180deg);
-}
-
-.about-card__back::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: url('../assets/about/card-back-texture.png') center / cover no-repeat;
-  opacity: 0.2;
-  pointer-events: none;
 }
 
 .about-card__back > * {
@@ -292,8 +353,19 @@
   z-index: 1;
 }
 
+.about-card__back .about-card__texture {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.2;
+  pointer-events: none;
+}
+
 .about-card__icon {
-  width: clamp(34px, 5vw, 76px);
+  width: 114px;
   height: auto;
 }
 
@@ -301,20 +373,31 @@
   margin: 0;
   color: var(--green-dark);
   font-family: 'Aestera - Personal use';
-  font-size: clamp(16px, 2.3vw, 36px);
+  font-size: 30px;
   font-style: normal;
   font-weight: 400;
-  line-height: normal;
+  line-height: 1.2;
 }
 
 .about-card__text {
   margin: 0;
   color: #000;
   font-family: Philosopher;
-  font-size: clamp(10px, 1.25vw, 20px);
+  font-size: 16px;
   font-style: normal;
   font-weight: 400;
   line-height: 1.25;
+}
+
+@keyframes starShine {
+  0%, 100% {
+    opacity: 0.4;
+    filter: drop-shadow(0 0 2px rgba(255, 215, 120, 0.4));
+  }
+  50% {
+    opacity: 1;
+    filter: drop-shadow(0 0 14px rgba(255, 215, 120, 1));
+  }
 }
 
 @keyframes locketDrop {
@@ -391,54 +474,6 @@
   93% { transform: rotateY(4deg); }
 }
 
-@media (max-width: 1024px) {
-  .about-hero {
-    --locket-top: -70px;
-  }
-}
-
-@media (max-width: 600px) {
-  .about-hero {
-    --locket-width: 150px;
-    --locket-top: -60px;
-  }
-
-  .about-frame {
-    padding: 56px 44px;
-  }
-
-  .about-ribbon {
-    top: 38%;
-  }
-
-  .about-cards {
-    flex-direction: column;
-    align-items: center;
-    gap: 28px;
-  }
-
-  .about-card {
-    width: min(74vw, 300px);
-  }
-
-  .about-card--1,
-  .about-card--3 {
-    margin-top: 0;
-  }
-
-  .about-card__title {
-    font-size: 28px;
-  }
-
-  .about-card__text {
-    font-size: 16px;
-  }
-
-  .about-card__icon {
-    width: 56px;
-  }
-}
-
 @media (prefers-reduced-motion: reduce) {
   .about *,
   .about *::before {
@@ -446,6 +481,7 @@
   }
 
   .about-values__title,
+  .about-values__subtitle,
   .about-card {
     opacity: 1;
   }

@@ -1,6 +1,7 @@
 .site-footer {
   --green: #1f5c3e;
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   width: 100%;
   overflow: hidden;
   font-family: 'Philosopher', serif;
@@ -11,7 +12,7 @@
   grid-area: 1 / 1;
   align-self: end;
   display: block;
-  width: auto;
+  width: 100%;
   height: auto;
   pointer-events: none;
 }
@@ -116,7 +117,7 @@
   letter-spacing: 0.5px;
 }
 
-@media (min-width: 320px) and (max-width: 1365px) {
+@media (min-width: 600px) and (max-width: 1365px) {
   .footer-card {
     gap: calc(32 * var(--u));
     padding: calc(56 * var(--u)) calc(80 * var(--u)) calc(32 * var(--u));
@@ -159,5 +160,53 @@
   .footer-copy {
     margin: calc(8 * var(--u)) 0 0;
     font-size: max(10px, calc(16 * var(--u)));
+  }
+}
+
+@media (min-width: 320px) and (max-width: 599px) {
+  .footer-card {
+    margin: 0 2%;
+    gap: 6px 12px;
+    padding: 16px 18px 8px;
+    border-radius: 6px;
+  }
+
+  .footer-chat h4,
+  .footer-quick h4 {
+    margin: 0 0 6px;
+    font-size: 12px;
+  }
+
+  .footer-email,
+  .footer-quick a {
+    font-size: 10px;
+  }
+
+  .footer-socials {
+    gap: 8px;
+    margin-top: 8px;
+  }
+
+  .footer-socials img {
+    width: 16px;
+    height: 16px;
+  }
+
+  .footer-logo {
+    margin-top: 0;
+  }
+
+  .footer-logo img {
+    height: 58px;
+  }
+
+  .footer-quick ul {
+    gap: 4px;
+  }
+
+  .footer-copy {
+    margin: 4px 0 0;
+    font-size: 10px;
+    letter-spacing: 0.3px;
   }
 }

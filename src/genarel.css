@@ -15,7 +15,7 @@
   min-height: 100vh;
   background-color: #fff3da;
   background-image: url('./assets/imgs/bg-pattern.png');
-  background-size: cover;
+  background-size: contain;
   background-repeat: repeat;
 }
 

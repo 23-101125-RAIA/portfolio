@@ -1,16 +1,15 @@
 import React, { useEffect, useRef, useState } from 'react';
-import './Exhibition .css';
+import './Exhibition.css';
 import '../genarel.css';
 import { supabase } from '../supabaseClient';
 
 import Header from '../compoents/layout/Header';
 import Footer from '../compoents/layout/Footer';
 
-import frameImg from '../assets/frame.png';
-import featherImg from '../assets/feather.png';
-import dividerImg from '../assets/divider.png';
+import featherImg from '../assets/imgs/feather.png';
+import dividerImg from '../assets/imgs/divider.png';
 
-const useReveal = () => {
+const useReveal = (threshold = 0.2) => {
   const ref = useRef(null);
   const [visible, setVisible] = useState(false);
 
@@ -24,11 +23,11 @@ const useReveal = () => {
           observer.disconnect();
         }
       },
-      { threshold: 0.2 }
+      { threshold }
     );
     observer.observe(node);
     return () => observer.disconnect();
-  }, []);
+  }, [threshold]);
 
   return [ref, visible];
 };
@@ -37,11 +36,11 @@ const DraggableFrame = ({ src, alt, side, visible }) => {
   const [offset, setOffset] = useState(0);
   const [dragging, setDragging] = useState(false);
   const startX = useRef(0);
-  const maxPull = 170;
+  const maxPull = 260;
 
   const clamp = (value) => {
-    if (side === 'right') return Math.max(-maxPull, Math.min(12, value));
-    return Math.max(-12, Math.min(maxPull, value));
+    if (side === 'right') return Math.max(-maxPull, Math.min(16, value));
+    return Math.max(-16, Math.min(maxPull, value));
   };
 
   const handleDown = (e) => {
@@ -62,21 +61,22 @@ const DraggableFrame = ({ src, alt, side, visible }) => {
 
   return (
     <div className={`frame-wrap frame-${side} ${visible ? 'in' : ''}`}>
-      <div
-        className={`frame-drag ${dragging ? 'is-dragging' : ''}`}
-        style={{
-          transform: `translateX(${offset}px)`,
-          transition: dragging
-            ? 'none'
-            : 'transform 0.7s cubic-bezier(0.34, 1.56, 0.64, 1)',
-        }}
-        onPointerDown={handleDown}
-        onPointerMove={handleMove}
-        onPointerUp={handleUp}
-        onPointerCancel={handleUp}
-      >
-        <img className="frame-photo" src={src} alt={alt} draggable="false" />
-        <img className="frame-border" src={frameImg} alt="" draggable="false" />
+      <div className={`frame-hint hint-${side} ${dragging ? 'paused' : ''}`}>
+        <div
+          className={`frame-drag ${dragging ? 'is-dragging' : ''}`}
+          style={{
+            transform: `translateX(${offset}px)`,
+            transition: dragging
+              ? 'none'
+              : 'transform 0.7s cubic-bezier(0.34, 1.56, 0.64, 1)',
+          }}
+          onPointerDown={handleDown}
+          onPointerMove={handleMove}
+          onPointerUp={handleUp}
+          onPointerCancel={handleUp}
+        >
+          <img className="frame-image" src={src} alt={alt} draggable="false" />
+        </div>
       </div>
     </div>
   );
@@ -109,11 +109,30 @@ const ExhibitionBlock = ({ item, reversed }) => {
   );
 };
 
+const FeatherRow = () => {
+  const [ref, visible] = useReveal(0.25);
+
+  return (
+    <div ref={ref} className={`feather-row ${visible ? 'visible' : ''}`}>
+      <div className="feather-slot feather-slot-left">
+        <img src={featherImg} alt="" draggable="false" />
+      </div>
+
+      <div className="feather-divider">
+        <img src={dividerImg} alt="" draggable="false" />
+      </div>
+
+      <div className="feather-slot feather-slot-right">
+        <img src={featherImg} alt="" draggable="false" />
+      </div>
+    </div>
+  );
+};
+
 const Exhibition = () => {
   const [page, setPage] = useState(null);
   const [exhibitions, setExhibitions] = useState([]);
   const [headRef, headVisible] = useReveal();
-  const [dividerRef, dividerVisible] = useReveal();
 
   useEffect(() => {
     const load = async () => {
@@ -139,28 +158,23 @@ const Exhibition = () => {
       <Header />
 
       <main className="exhibition-page">
-        <div className="feather feather-right">
-          <img src={featherImg} alt="" draggable="false" />
-        </div>
-        <div className="feather feather-left">
-          <img src={featherImg} alt="" draggable="false" />
-        </div>
-
-        <div ref={headRef} className={`exhibition-head ${headVisible ? 'visible' : ''}`}>
+        <div
+          ref={headRef}
+          className={`exhibition-head ${headVisible ? 'visible' : ''}`}
+        >
           <h1 className="exhibition-page-title">{page?.section_title}</h1>
           <p className="exhibition-page-subtitle">{page?.section_subtitle}</p>
         </div>
 
-        {exhibitions[0] && <ExhibitionBlock item={exhibitions[0]} reversed={false} />}
+        {exhibitions[0] && (
+          <ExhibitionBlock item={exhibitions[0]} reversed={false} />
+        )}
 
-        <div
-          ref={dividerRef}
-          className={`exhibition-divider ${dividerVisible ? 'visible' : ''}`}
-        >
-          <img src={dividerImg} alt="" draggable="false" />
-        </div>
+        <FeatherRow />
 
-        {exhibitions[1] && <ExhibitionBlock item={exhibitions[1]} reversed={true} />}
+        {exhibitions[1] && (
+          <ExhibitionBlock item={exhibitions[1]} reversed={true} />
+        )}
       </main>
 
       <Footer />

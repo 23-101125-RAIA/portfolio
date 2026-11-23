@@ -6,15 +6,15 @@ import '../genarel.css';
 import Header from '../compoents/layout/Header';
 import Footer from '../compoents/layout/Footer';
 
-import clockImg from '../assets/clock-clean.png';
-import paperImg from '../assets/paper.png';
-import coin1 from '../assets/coin-1.png';
-import coin2 from '../assets/coin-2.png';
-import coin3 from '../assets/coin-3.png';
-import coin4 from '../assets/coin-4.png';
-import coin5 from '../assets/coin-5.png';
-import coin6 from '../assets/coin-6.png';
-import coin7 from '../assets/coin-7.png';
+import clockImg from '../assets/imgs/clock-clean.png';
+import paperImg from '../assets/imgs/paper.png';
+import coin1 from '../assets/imgs/coin-1.png';
+import coin2 from '../assets/imgs/coin-2.png';
+import coin3 from '../assets/imgs/coin-3.png';
+import coin4 from '../assets/imgs/coin-4.png';
+import coin5 from '../assets/imgs/coin-5.png';
+import coin6 from '../assets/imgs/coin-6.png';
+import coin7 from '../assets/imgs/coin-7.png';
 
 const coins = [coin1, coin2, coin3, coin4, coin5, coin6, coin7];
 const RADIUS = 33;
@@ -70,7 +70,7 @@ const Timeline = () => {
       <Header />
 
       <section className="tl-stage">
-        <img className="tl-paper" src={paperImg} alt="" draggable="false" />
+        <div className="tl-paper" style={{ backgroundImage: `url(${paperImg})` }} />
 
         <div className="tl-clock">
           <img className="tl-clock__face" src={clockImg} alt="" draggable="false" />
@@ -117,7 +117,6 @@ const Timeline = () => {
                   </span>
                 ))}
               </h2>
-              <span className="tl-rule" />
               <p className="tl-text" aria-label={current.description}>
                 {words.map((w, i) => (
                   <React.Fragment key={i}>

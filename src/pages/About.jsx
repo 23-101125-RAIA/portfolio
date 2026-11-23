@@ -1,22 +1,26 @@
 import React, { useEffect, useRef, useState } from 'react';
-import './About .css';
+import './About.css';
 import '../genarel.css';
 import { supabase } from '../supabaseClient';
 
 import Header from '../compoents/layout/Header';
 import Footer from '../compoents/layout/Footer';
-import VintageButton from '../compoents/buttons/VintageButton';
-import VintageButtonSecondary from '../compoents/buttons/VintageButtonSecondary';
+import locketImage from '../assets/imgs/locket.png';
+import flowerLeftImage from '../assets/imgs/flower-right1.png';
+import flowerRightImage from '../assets/imgs/flower-left1.png';
+import ribbonLeftImage from '../assets/imgs/ribbon-left.png';
+import ribbonRightImage from '../assets/imgs/ribbon-right.png';
+import frameImage from '../assets/imgs/frame.png';
+import starImage from '../assets/imgs/star.png';
+import cardBackTexture from '../assets/imgs/paper-texture.png';
+import cardFrontOne from '../assets/imgs/card-front-1.png';
+import cardFrontTwo from '../assets/imgs/card-front-2.png';
+import cardFrontThree from '../assets/imgs/card-front-3.png';
+import fleurImage from '../assets/imgs/fleur.png';
+import VintageButtonSecondary from '../compoents/common/VintageButtonSecondary';
+import VintageButton from '../compoents/common/VintageButton';
 
-import locketImage from '../assets/about/locket.png';
-import flowerLeftImage from '../assets/about/flower-left.png';
-import flowerRightImage from '../assets/about/flower-right.png';
-import ribbonLeftImage from '../assets/about/ribbon-left.png';
-import ribbonRightImage from '../assets/about/ribbon-right.png';
-import cardFrontOne from '../assets/about/card-front-1.png';
-import cardFrontTwo from '../assets/about/card-front-2.png';
-import cardFrontThree from '../assets/about/card-front-3.png';
-import fleurImage from '../assets/about/fleur.png';
+const CV_LINK = '';
 
 const cardFronts = [cardFrontOne, cardFrontTwo, cardFrontThree];
 
@@ -68,26 +72,35 @@ const AboutHero = ({ about }) => (
       <img className="about-locket__swing" src={locketImage} alt="Portrait locket" />
     </div>
 
-    <h1 className="about-title">{renderHeading(about.heading || '')}</h1>
+    <div className="about-title-wrap">
+      <img className="about-star about-star--left" src={starImage} alt="" />
+      <h1 className="about-title">{renderHeading(about.heading || '')}</h1>
+      <img className="about-star about-star--right" src={starImage} alt="" />
+    </div>
 
     <div className="about-frame">
-      <p className="about-frame__text">{about.bio_text}</p>
-      <div className="about-frame__actions">
-        <VintageButton to="/exhibitions">{about.exhibitions_button_label}</VintageButton>
-        <VintageButtonSecondary href={about.cv_url || '/cv.pdf'} download>
-          {about.cv_button_label}
-        </VintageButtonSecondary>
+      <div className="about-frame__paper" />
+      <img className="about-frame__image" src={frameImage} alt="" />
+      <div className="about-frame__content">
+        <p className="about-frame__text">{about.bio_text}</p>
+        <div className="about-frame__actions">
+          <VintageButton to="/exhibition">{about.exhibitions_button_label}</VintageButton>
+          <VintageButtonSecondary href={CV_LINK || about.cv_url} download>
+            {about.cv_button_label}
+          </VintageButtonSecondary>
+        </div>
       </div>
     </div>
   </section>
 );
 
-const CoreValues = ({ title, cards }) => {
+const CoreValues = ({ title, subtitle, cards }) => {
   const [ref, visible] = useInView(0.15);
 
   return (
     <section ref={ref} className={`about-values${visible ? ' is-visible' : ''}`}>
       <h2 className="about-values__title">{title}</h2>
+      {subtitle && <p className="about-values__subtitle">{subtitle}</p>}
 
       <div className="about-cards">
         {cards.map((card, index) => (
@@ -98,6 +111,7 @@ const CoreValues = ({ title, cards }) => {
                   <img src={cardFronts[index % cardFronts.length]} alt={card.title} />
                 </div>
                 <div className="about-card__face about-card__back">
+                  <img className="about-card__texture" src={cardBackTexture} alt="" />
                   <img className="about-card__icon" src={card.icon_image_url || fleurImage} alt="" />
                   <h3 className="about-card__title">
                     {card.card_number} / {card.title}
@@ -117,6 +131,7 @@ const About = () => {
   const [about, setAbout] = useState(null);
   const [cards, setCards] = useState([]);
   const [sectionTitle, setSectionTitle] = useState('');
+  const [sectionSubtitle, setSectionSubtitle] = useState('');
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
@@ -130,7 +145,7 @@ const About = () => {
           .select('*')
           .order('display_order', { ascending: true })
           .order('card_id', { ascending: true }),
-        supabase.from('site_pages').select('section_title').eq('page_id', 8).maybeSingle()
+        supabase.from('site_pages').select('section_title, section_subtitle').eq('page_id', 8).maybeSingle()
       ]);
 
       if (!active) return;
@@ -138,6 +153,7 @@ const About = () => {
       setAbout(aboutResult.data);
       setCards(cardsResult.data || []);
       setSectionTitle(pageResult.data?.section_title || '');
+      setSectionSubtitle(pageResult.data?.section_subtitle || '');
       setLoaded(true);
     };
 
@@ -154,7 +170,9 @@ const About = () => {
 
       <main className="about">
         {loaded && about && <AboutHero about={about} />}
-        {loaded && cards.length > 0 && <CoreValues title={sectionTitle} cards={cards} />}
+        {loaded && cards.length > 0 && (
+          <CoreValues title={sectionTitle} subtitle={sectionSubtitle} cards={cards} />
+        )}
       </main>
 
       <Footer />
