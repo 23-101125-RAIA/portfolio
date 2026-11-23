@@ -4,7 +4,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-      padding: 150px 0 0;
+  padding: 150px 0 0;
 }
 
 .scroll {
@@ -201,6 +201,28 @@
 @keyframes scroll-bullet {
   from { opacity: 0; }
   to { opacity: 1; }
+}
+
+@media (min-width: 320px) and (max-width: 1365px) {
+  .privacy-scroll {
+    min-height: var(--rh);
+    padding: calc(150 * var(--u)) 0 0;
+  }
+
+  .scroll {
+    --w: 96cqw;
+    --u: min(calc(var(--rh) / 1144), calc(var(--w) / 1406));
+    min-height: var(--rh);
+  }
+
+  .scroll__title {
+    font-size: clamp(10px, calc(53 * var(--u)), 45px);
+  }
+
+  .scroll__text,
+  .scroll__list {
+    font-size: clamp(10px, calc(28 * var(--u)), 24px);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

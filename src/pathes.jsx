@@ -9,6 +9,9 @@ import Faq from './pages/Faq';
 import Privacy from './pages/Privacy';
 import Sitemap from './pages/Sitemap';
 import Contact from './pages/Contact';
+import About from './pages/About';
+import Exhibition from './pages/Exhibition';
+import Timeline from './pages/Timeline';
 
 
 
@@ -25,13 +28,13 @@ const Routess = () => {
           <Route path="/error" element={<Error />} />
           {/* <Route path="/gallery" element={<Gallery />} /> */}
           {/* <Route path="/categories" element={<Categories />} /> */}
-          {/* <Route path="/timeline" element={<Timeline />} /> */}
+          <Route path="/timeline" element={<Timeline />} />
           {/* <Route path="/projects" element={<Projects />} /> */}
           {/* <Route path="/project-details" element={<ProjectDetails />} /> */}
           {/* <Route path="/tools" element={<Tools />} /> */}
           <Route path="/experiments" element={<Code />} />
-          {/* <Route path="/about" element={<About />} /> */}
-          {/* <Route path="/exhibition-history" element={<ExhibitionHistory />} /> */}
+          <Route path="/about" element={<About />} />
+          <Route path="/exhibition" element={<Exhibition />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/faq" element={<Faq />} />
           <Route path="/privacy" element={<Privacy />} />

@@ -153,7 +153,7 @@
 
 .faq__flower--left {
   left: 0;
-      bottom: 80px;
+  bottom: 80px;
 }
 
 .faq__flower--right {
@@ -377,26 +377,98 @@
   }
 }
 
-@media (max-width: 768px) {
-  .lens {
-    --lens-width: 130px;
+@media (min-width: 320px) and (max-width: 1365px) {
+  .faq {
+    padding: calc(100 * var(--u)) 0 0;
   }
 
   .faq__inner {
-    padding: 56px 16px 100px;
+    min-height: calc(640 * var(--u));
+    padding: calc(80 * var(--u)) calc(24 * var(--u)) calc(120 * var(--u));
+  }
+
+  .faq__content {
+    max-width: calc(900 * var(--u));
   }
 
   .faq__title {
-    font-size: 36px;
+    margin: 0 0 calc(16 * var(--u));
+    font-size: max(10px, calc(45 * var(--u)));
   }
 
-  .faq__subtitle,
+  .faq__subtitle {
+    max-width: calc(640 * var(--u));
+    margin: 0 auto calc(48 * var(--u));
+    font-size: max(10px, calc(24 * var(--u)));
+  }
+
+  .faq__list {
+    gap: calc(20 * var(--u));
+  }
+
+  .faq__item {
+    border-radius: calc(20 * var(--u));
+    border: max(2px, calc(4 * var(--u))) solid #a47843;
+    box-shadow: 0 calc(10 * var(--u)) calc(4 * var(--u)) 0 rgba(0, 0, 0, 0.25);
+  }
+
   .faq__question {
-    font-size: 20px;
+    gap: calc(20 * var(--u));
+    padding: calc(18 * var(--u)) calc(24 * var(--u));
+    font-size: max(10px, calc(24 * var(--u)));
+  }
+
+  .faq__icon {
+    width: max(10px, calc(22 * var(--u)));
+    height: max(10px, calc(22 * var(--u)));
+  }
+
+  .faq__icon::before,
+  .faq__icon::after {
+    height: max(2px, calc(3 * var(--u)));
+  }
+
+  .faq__answer p {
+    padding: 0 calc(24 * var(--u)) calc(20 * var(--u));
+    font-size: max(10px, calc(20 * var(--u)));
   }
 
   .faq__flower {
-    width: 90px;
+    width: calc(190 * var(--u));
+  }
+
+  .faq__flower--left {
+    bottom: calc(80 * var(--u));
+  }
+
+  .faq__flower--right {
+    top: calc(180 * var(--u));
+  }
+
+  .lens {
+    --lens-width: calc(190 * var(--u));
+  }
+
+  .lens--left {
+    left: calc(-10 * var(--u));
+    top: calc(449.98 * var(--u));
+  }
+
+  .lens--right {
+    left: calc(100% - var(--lens-width) + 10 * var(--u));
+    top: calc(220 * var(--u));
+  }
+
+  .lens__badge {
+    width: max(16px, calc(28 * var(--u)));
+    height: max(16px, calc(28 * var(--u)));
+    margin-left: calc(max(16px, calc(28 * var(--u))) / -2);
+  }
+
+  .lens__badge::before,
+  .lens__badge::after {
+    width: 50%;
+    height: max(2px, calc(3 * var(--u)));
   }
 }
 

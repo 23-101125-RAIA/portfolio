@@ -349,34 +349,50 @@
     }
 }
 
-@media (max-width: 700px) {
+@media (min-width: 320px) and (max-width: 1365px) {
     .contact {
-        padding: 90px 12px 70px;
-    }
-
-    .contact-hand {
-        display: none;
+        min-height: calc(var(--rh) * 0.78);
+        padding: calc(210 * var(--u)) calc(24 * var(--u)) calc(90 * var(--u));
     }
 
     .contact-card {
-        width: min(780px, 92vw);
-    }
-}
-
-@media (max-width: 560px) {
-    .contact-card {
-        aspect-ratio: auto;
-        min-height: 118vw;
-        padding: 16vw 9vw 12vw;
+        width: min(920px, calc(var(--rw) * 0.64));
     }
 
-    .contact-form {
-        gap: 3vw;
+    .contact-seal {
+        width: calc(140 * var(--u));
     }
 
-    .contact-row {
-        grid-template-columns: 1fr;
-        gap: 2.4cqw;
+    .contact-title {
+        font-size: clamp(10px, 5.4cqw, 52px);
+    }
+
+    .contact-note {
+        font-size: clamp(10px, 2.9cqw, 27px);
+    }
+
+    .contact-label {
+        font-size: clamp(10px, 2.8cqw, 26px);
+    }
+
+    .contact-input {
+        height: clamp(24px, 8.8cqw, 84px);
+        border-radius: clamp(6px, 2.6cqw, 18px);
+        font-size: clamp(10px, 3.1cqw, 29px);
+    }
+
+    .contact-textarea {
+        height: clamp(34px, 11.6cqw, 112px);
+        padding-right: calc(clamp(52px, 17.5cqw, 170px) + 3.4cqw);
+    }
+
+    .contact-send {
+        width: clamp(52px, 17.5cqw, 170px);
+        font-size: clamp(10px, 3.4cqw, 31px);
+    }
+
+    .contact-hand img {
+        width: min(calc(var(--rw) * 0.24), 460px);
     }
 }
 

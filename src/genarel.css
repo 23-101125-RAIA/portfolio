@@ -5,103 +5,106 @@
   font-style: normal;
 }
 
-.bkk{
-    --pattern-size: 240px;
+:root {
+  --rw: 100vw;
+  --rh: 100dvh;
+}
+
+.bkk {
+  --pattern-size: 240px;
   min-height: 100vh;
   background-color: #fff3da;
   background-image: url('./assets/imgs/bg-pattern.png');
-  background-size:  cover;
+  background-size: cover;
   background-repeat: repeat;
 }
+
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 html {
-    scroll-behavior: smooth;
-        background-color: #FFF3DA;
-
+  scroll-behavior: smooth;
+  background-color: #FFF3DA;
 }
 
 body {
-    width: 100%;
-    overflow-x: hidden;
-        background-color: #FFF3DA;
-
+  width: 100%;
+  overflow-x: hidden;
+  background-color: #FFF3DA;
 }
 
 ::-webkit-scrollbar {
-    width: 15px;
+  width: 15px;
 }
 
 ::-webkit-scrollbar-track {
-    background-color:#fff0d4 ;
+  background-color: #fff0d4;
 }
 
 ::-webkit-scrollbar-thumb {
-    background:#A47843 ;
-    border-radius: 10px ;
+  background: #A47843;
+  border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background-color:#8e683a ;
+  background-color: #8e683a;
 }
 
 .no-underline-link {
-    text-decoration: none;
+  text-decoration: none;
 }
 
-/* ===== RESPONSIVE ===== */
+@media (min-width: 320px) and (max-width: 1365px) {
+  :root {
+    --u: calc(var(--rw) / 1366);
+  }
 
-/* 1) Smaller laptop: 1025px - 1365px */
+  .bkk {
+    min-height: var(--rh);
+  }
+}
+
 @media (min-width: 1025px) and (max-width: 1365px) {
-    ::-webkit-scrollbar {
-        width: 13px;
-    }
+  ::-webkit-scrollbar {
+    width: 12px;
+  }
 }
 
-/* 2) Tablet: 600px - 1024px */
-@media (min-width: 600px) and (max-width: 1024px) {
-    ::-webkit-scrollbar {
-        width: 10px;
-    }
-}
+@media (min-width: 320px) and (max-width: 1024px) {
+  :root {
+    --rw: 100dvh;
+    --rh: 100dvw;
+  }
 
-/* 3) Mobile: 320px - 430px (whole site rotated 90deg = landscape canvas) */
-@media (min-width: 320px) and (max-width: 430px) {
-    html,
-    body {
-        position: relative;
-        width: 100%;
-        height: 100%;
-        overflow: hidden;
-    }
+  html,
+  body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+  }
 
-    #root {
-        position: absolute;
-        top: 0;
-        left: 100%;
-        width: 100vh;          /* canvas width  = phone height */
-        height: 100vw;         /* canvas height = phone width  */
-        transform: rotate(90deg);
-        transform-origin: top left;
-        overflow-x: hidden;
-        overflow-y: auto;
-        scroll-behavior: smooth;
-        -webkit-overflow-scrolling: touch;
-    }
+  body {
+    position: relative;
+  }
 
-    .bkk {
-        min-height: 100vw;     /* full canvas height */
-    }
+  #root {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: var(--rw);
+    height: var(--rh);
+    overflow-x: hidden;
+    overflow-y: auto;
+    scroll-behavior: smooth;
+    transform-origin: 0 0;
+    transform: rotate(90deg) translateY(-100%);
+    background-color: #FFF3DA;
+  }
 
-    ::-webkit-scrollbar {
-        width: 6px;
-    }
-
-    ::-webkit-scrollbar-thumb {
-        border-radius: 6px;
-    }
+  #root ::-webkit-scrollbar {
+    width: 8px;
+  }
 }

@@ -36,29 +36,15 @@
   cursor: default;
 }
 
-/* ===== RESPONSIVE ===== */
-/* 670px digit at 1366px wide = 49.05vw; scaled x0.96 for safety. Wave height scales with the glyph. */
-
-/* 1) Smaller laptop: 1025px - 1365px */
-@media (min-width: 1025px) and (max-width: 1365px) {
+@media (min-width: 320px) and (max-width: 1365px) {
   .ink-digit {
-    --amp: 0.0269em;
-    font-size: 47.08vw;
-  }
-}
-
-/* 2) Tablet: 600px - 1024px */
-@media (min-width: 600px) and (max-width: 1024px) {
-  .ink-digit {
-    --amp: 0.0269em;
-    font-size: 47.08vw;
-  }
-}
-
-/* 3) Mobile: 320px - 430px (rotated canvas: width = 100vh) */
-@media (min-width: 320px) and (max-width: 430px) {
-  .ink-digit {
-    --amp: 0.0269em;
-    font-size: 39.2vh;
+    --amp: calc(18 * var(--u));
+    font-size: calc(670 * var(--u));
+    background-position:
+      var(--ph) calc(var(--lv) - var(--amp) + 1 * var(--u)),
+      0 var(--lv),
+      calc(var(--ph) * -0.6 + 90 * var(--u)) calc(var(--lv) - var(--amp) - 13 * var(--u)),
+      0 calc(var(--lv) - 14 * var(--u)),
+      0 0;
   }
 }

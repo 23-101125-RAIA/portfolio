@@ -1,0 +1,154 @@
+.vintage-btn-alt {
+  --red: #9a0004;
+  --red-dark: #440103;
+  --cream: #fff3da;
+  --wine: #620002;
+  position: relative;
+  isolation: isolate;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  height: 50px;
+  padding: 0 40px;
+  font-family: 'Philosopher', serif;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1;
+  white-space: nowrap;
+  text-decoration: none;
+  color: var(--red);
+  background: var(--cream);
+  border: 2px solid var(--red);
+  border-radius: 999px;
+  cursor: pointer;
+  overflow: hidden;
+  box-shadow: 0 4px 0 var(--red), 0 8px 12px rgba(0, 0, 0, 0.25);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.vintage-btn-alt::after {
+  content: '';
+  position: absolute;
+  inset: 5px;
+  border: 1px dashed rgba(154, 0, 4, 0.55);
+  border-radius: 999px;
+  pointer-events: none;
+  z-index: 1;
+  transition: border-color 0.4s ease 0.15s;
+}
+
+.vintage-btn-alt__wave {
+  position: absolute;
+  left: 50%;
+  top: 108%;
+  width: 240%;
+  aspect-ratio: 1;
+  border-radius: 42%;
+  transform: translateX(-50%);
+  z-index: -1;
+  transition: top 1s cubic-bezier(0.2, 0.8, 0.2, 1);
+  animation: vintageAltWave 7s linear infinite;
+}
+
+.vintage-btn-alt__wave--dark {
+  background: var(--wine);
+}
+
+.vintage-btn-alt__wave--red {
+  background: var(--red);
+  transition-delay: 0.14s;
+  animation-duration: 9s;
+  animation-direction: reverse;
+}
+
+.vintage-btn-alt__label {
+  position: relative;
+  z-index: 2;
+  transition: color 0.35s ease 0.2s, text-shadow 0.35s ease 0.2s;
+}
+
+.vintage-btn-alt:hover,
+.vintage-btn-alt:focus-visible {
+  transform: translateY(-2px);
+}
+
+.vintage-btn-alt:hover .vintage-btn-alt__wave,
+.vintage-btn-alt:focus-visible .vintage-btn-alt__wave {
+  top: -110%;
+}
+
+.vintage-btn-alt:hover .vintage-btn-alt__label,
+.vintage-btn-alt:focus-visible .vintage-btn-alt__label {
+  color: var(--cream);
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.35);
+}
+
+.vintage-btn-alt:hover::after,
+.vintage-btn-alt:focus-visible::after {
+  border-color: rgba(255, 243, 218, 0.55);
+}
+
+.vintage-btn-alt:focus-visible {
+  outline: 2px dashed var(--wine);
+  outline-offset: 4px;
+}
+
+.vintage-btn-alt:active {
+  transform: translateY(3px);
+  box-shadow: 0 1px 0 var(--red), 0 3px 6px rgba(0, 0, 0, 0.25);
+}
+
+@keyframes vintageAltWave {
+  from { transform: translateX(-50%) rotate(0deg); }
+  to { transform: translateX(-50%) rotate(360deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vintage-btn-alt__wave {
+    animation: none;
+  }
+}
+
+@media (min-width: 1025px) and (max-width: 1365px) {
+  .vintage-btn-alt {
+    height: 46px;
+    padding: 0 34px;
+    font-size: 22px;
+  }
+
+  .vintage-btn-alt::after {
+    inset: 4px;
+  }
+}
+
+@media (min-width: 600px) and (max-width: 1024px) {
+  .vintage-btn-alt {
+    height: 42px;
+    padding: 0 28px;
+    font-size: 19px;
+    box-shadow: 0 3px 0 var(--red), 0 6px 10px rgba(0, 0, 0, 0.25);
+  }
+
+  .vintage-btn-alt::after {
+    inset: 4px;
+  }
+}
+
+@media (min-width: 320px) and (max-width: 599px) {
+  .vintage-btn-alt {
+    height: 32px;
+    padding: 0 18px;
+    font-size: 13px;
+    border-width: 1.5px;
+    box-shadow: 0 2px 0 var(--red), 0 4px 8px rgba(0, 0, 0, 0.25);
+  }
+
+  .vintage-btn-alt::after {
+    inset: 3px;
+  }
+
+  .vintage-btn-alt:active {
+    box-shadow: 0 1px 0 var(--red), 0 2px 4px rgba(0, 0, 0, 0.25);
+  }
+}

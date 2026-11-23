@@ -497,7 +497,7 @@ const Code = () => {
   );
 
   return (
-    <div className="bkk">
+    <div className="bkkk">
       <Header />
 
       <main className="creative-code" ref={pageRef}>
