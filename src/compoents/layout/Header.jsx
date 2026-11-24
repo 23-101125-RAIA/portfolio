@@ -7,7 +7,7 @@ import '../../genarel.css';
 import soundOnIcon from '../../assets/imgs/sound-on.png';
 import soundOffIcon from '../../assets/imgs/sound-off.png';
 import ticketImg from '../../assets/imgs/ticketheader.png';
-import bgMusic from '../../assets/audio/voytekpavlik-classical-and-elegant-fantasy-tale-147366.mp3';
+import bgMusic from '../../assets/audio/sonican-enchanted-fantasy-356791.mp3';
 import VintageButton from '../common/VintageButton';
 
 const Header = () => {

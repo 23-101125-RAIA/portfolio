@@ -6,7 +6,6 @@ import '../../genarel.css';
 
 import flowersBg from '../../assets/imgs/footer-flowers.png';
 import textureBg from '../../assets/imgs/paper-texture.png';
-import logo from '../../assets/imgs/logp.png';
 import icon1 from '../../assets/imgs/icon1.png';
 import icon2 from '../../assets/imgs/icon2.png';
 import icon3 from '../../assets/imgs/icon3.png';
@@ -38,13 +37,34 @@ const Footer = () => {
     { key: 'linkedin', icon: icon1, url: settings?.linkedin_url },
     { key: 'behance', icon: icon2, url: settings?.behance_url },
     { key: 'github', icon: icon3, url: settings?.github_url },
-  ];
+  ].filter((social) => social.url);
 
   return (
     <footer className="site-footer">
+      <svg width="0" height="0" style={{ position: 'absolute' }} aria-hidden="true">
+        <filter id="rough-edge" x="-3%" y="-8%" width="106%" height="116%">
+          <feTurbulence
+            type="fractalNoise"
+            baseFrequency="0.12"
+            numOctaves="4"
+            seed="3"
+            result="noise"
+          />
+          <feDisplacementMap
+            in="SourceGraphic"
+            in2="noise"
+            scale="12"
+            xChannelSelector="R"
+            yChannelSelector="G"
+          />
+        </filter>
+      </svg>
+
       <img className="footer-flowers" src={flowersBg} alt="" />
 
       <div className="footer-card" style={{ '--texture': `url(${textureBg})` }}>
+        <div className="footer-card-bg" />
+
         <div className="footer-chat">
           <h4>Let&apos;s chat!</h4>
           {settings?.contact_email && (
@@ -54,12 +74,7 @@ const Footer = () => {
           )}
           <div className="footer-socials">
             {socials.map((social) => (
-              <a
-                key={social.key}
-                href={social.url || '#'}
-                target={social.url ? '_blank' : undefined}
-                rel="noreferrer"
-              >
+              <a key={social.key} href={social.url} target="_blank" rel="noreferrer">
                 <img src={social.icon} alt={social.key} />
               </a>
             ))}
@@ -67,7 +82,7 @@ const Footer = () => {
         </div>
 
         <div className="footer-logo">
-          <img src={settings?.logo_url || logo} alt="Logo" />
+          {settings?.logo_url && <img src={settings.logo_url} alt="Logo" />}
         </div>
 
         <div className="footer-quick">

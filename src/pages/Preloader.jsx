@@ -12,6 +12,7 @@ import {
 import leftDecoration from '../assets/imgs/left-decoration.png';
 import rightDecoration from '../assets/imgs/right-decoration.png';
 import preloaderCenter from '../assets/imgs/preloader-center.png';
+import flipSound from '../assets/audio/luxury_vintage_typography_reveal.wav';
 
 import './Preloader.css';
 
@@ -28,6 +29,8 @@ const Preloader = ({
     const [exiting, setExiting] = useState(false);
     const finishedRows = useRef(0);
     const timerRef = useRef(null);
+    const soundTimerRef = useRef(null);
+    const audioRef = useRef(null);
     const standalone = !onComplete;
 
     useLayoutEffect(() => {
@@ -46,7 +49,22 @@ const Preloader = ({
     }, []);
 
     useEffect(() => {
-        return () => clearTimeout(timerRef.current);
+        const audio = new Audio(flipSound);
+        audio.preload = 'auto';
+        audio.loop = false;
+        audioRef.current = audio;
+
+        soundTimerRef.current = setTimeout(() => {
+            audio.currentTime = 0;
+            audio.play().catch(() => {});
+        }, TOP_START_MS);
+
+        return () => {
+            clearTimeout(timerRef.current);
+            clearTimeout(soundTimerRef.current);
+            audio.pause();
+            audioRef.current = null;
+        };
     }, []);
 
     const handleRowDone = useCallback(() => {
