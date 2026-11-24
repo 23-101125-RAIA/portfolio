@@ -1,5 +1,5 @@
 :root {
-  --gallery-bg: #fff4dd;
+  --gallery-bg: #fff3da;
   --gallery-green-light: #559e7b;
   --gallery-green-dark: #1c573a;
 }
@@ -100,6 +100,7 @@ button.gallery-frame {
   width: 100%;
   height: auto;
   user-select: none;
+  color: transparent;
   filter: drop-shadow(0 0.6em 1em rgba(60, 40, 10, 0.25));
 }
 
@@ -179,7 +180,11 @@ button.gallery-frame {
   z-index: 100;
   overflow: hidden;
   font-size: clamp(11px, 1.15vw, 18px);
-  background: var(--gallery-bg);
+  background-color: var(--gallery-bg);
+  background-image: inherit;
+  background-size: inherit;
+  background-repeat: inherit;
+  background-position: inherit;
   perspective: 1000px;
   perspective-origin: 50% 42%;
   animation: gallery-fade 0.45s ease both;
@@ -306,4 +311,51 @@ button.gallery-frame {
   .gallery-intro {
     transition-duration: 0.01s;
   }
+}
+
+.gallery-vr {
+  position: fixed;
+  inset: 0;
+  z-index: 110;
+  background-color: var(--gallery-bg);
+  animation: gallery-fade 0.45s ease both;
+}
+
+.gallery-vr canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  touch-action: none;
+}
+
+.gallery-vr__close {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+}
+
+.gallery-vr__panel {
+  position: absolute;
+  right: 0;
+  bottom: 2.5rem;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.8rem;
+  pointer-events: none;
+}
+
+.gallery-vr__panel > * {
+  pointer-events: auto;
+}
+
+.gallery-vr__hint {
+  max-width: 32rem;
+  margin: 0;
+  color: #f4ead0;
+  font-family: 'Philosopher', serif;
+  font-size: 1rem;
+  text-align: center;
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.7);
 }

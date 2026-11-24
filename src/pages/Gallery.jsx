@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { lazy, Suspense, useEffect, useRef, useState } from 'react';
 import './Gallery.css';
 import '../genarel.css';
 
@@ -10,9 +10,11 @@ import Footer from '../compoents/layout/Footer';
 import GalleryFrame from '../compoents/layout/GalleryFrame';
 import GalleryTunnel from '../compoents/layout/GalleryTunnel';
 import useGalleryItems from '../compoents/layout/useGalleryItems';
-import { FRAME_SLOTS, DECOR } from '../compoents/layout/galleryLayout.JS';
+import { FRAME_SLOTS, DECOR } from '../compoents/layout/galleryLayout.js';
 import VintageButton from '../compoents/common/VintageButton';
 import VintageButtonSecondary from '../compoents/common/VintageButtonSecondary';
+
+const GalleryVR = lazy(() => import('../compoents/layout/GalleryVR'));
 
 const ENTER_DURATION = 850;
 const CHANDELIER_SPEED = 0.5;
@@ -21,6 +23,7 @@ const Gallery = () => {
   const { items, loading } = useGalleryItems();
   const [phase, setPhase] = useState('idle');
   const [startIndex, setStartIndex] = useState(0);
+  const [vrOpen, setVrOpen] = useState(false);
   const timer = useRef(null);
 
   useEffect(() => () => clearTimeout(timer.current), []);
@@ -33,6 +36,11 @@ const Gallery = () => {
   };
 
   const exitGallery = () => setPhase('idle');
+
+  const openVR = () => {
+    if (loading || items.length === 0) return;
+    setVrOpen(true);
+  };
 
   const slowDownChandelier = (e) => {
     e.currentTarget.playbackRate = CHANDELIER_SPEED;
@@ -110,7 +118,7 @@ const Gallery = () => {
 
           <div className="gallery-intro__actions">
             <VintageButton onClick={() => enterGallery(0)}>Enter Gallery Space</VintageButton>
-            <VintageButtonSecondary>VR View</VintageButtonSecondary>
+            <VintageButtonSecondary onClick={openVR}>VR View</VintageButtonSecondary>
           </div>
         </section>
       </main>
@@ -119,6 +127,12 @@ const Gallery = () => {
 
       {phase === 'tunnel' && (
         <GalleryTunnel items={items} startIndex={startIndex} onExit={exitGallery} />
+      )}
+
+      {vrOpen && (
+        <Suspense fallback={null}>
+          <GalleryVR items={items} onExit={() => setVrOpen(false)} />
+        </Suspense>
       )}
     </div>
   );

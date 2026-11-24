@@ -5,12 +5,30 @@ import VintageButton from '../common/VintageButton';
 const DEPTH_GAP = 650;
 const SCROLL_SPEED = 1.5;
 const SMOOTHING = 0.08;
-const SIDE_OFFSET = 20;
+const SIDE_OFFSET_VW = 27;
+const FOCUS_NEAR = 150;
+const FOCUS_RANGE = 500;
+const MAX_BLUR = 9;
+const DIM_OPACITY = 0.45;
+const VISIBLE_DISTANCE = 1900;
 
 const clamp01 = (value) => Math.min(1, Math.max(0, value));
 
-const opacityAt = (relativeZ) =>
-  Math.min(clamp01((relativeZ + 2400) / 900), clamp01((350 - relativeZ) / 250));
+const lookAt = (relativeZ) => {
+  const focus =
+    relativeZ >= -FOCUS_NEAR ? 1 : 1 - clamp01((-relativeZ - FOCUS_NEAR) / FOCUS_RANGE);
+  const arriving = clamp01((relativeZ + VISIBLE_DISTANCE) / 500);
+  const leaving = clamp01((350 - relativeZ) / 250);
+  const blur = (1 - focus) * MAX_BLUR;
+
+  return {
+    focus,
+    style: {
+      opacity: arriving * leaving * (DIM_OPACITY + (1 - DIM_OPACITY) * focus),
+      filter: blur > 0.1 ? `blur(${blur.toFixed(1)}px)` : 'none',
+    },
+  };
+};
 
 const splitTitle = (title = '') => {
   const [no, ...rest] = title.split(' / ');
@@ -85,7 +103,7 @@ const GalleryTunnel = ({ items, startIndex = 0, onExit }) => {
   }, [maxDepth, onExit]);
 
   const endZ = -(items.length + 1) * DEPTH_GAP;
-  const endOpacity = clamp01((depth + endZ + 2400) / 900);
+  const endLook = lookAt(depth + endZ);
 
   return (
     <div className="gallery-tunnel" role="dialog" aria-label="Gallery walkthrough">
@@ -94,13 +112,14 @@ const GalleryTunnel = ({ items, startIndex = 0, onExit }) => {
           const z = -(i + 1) * DEPTH_GAP;
           const isRight = i % 2 === 1;
           const { no, name } = splitTitle(item.title);
-          const x = `calc(-50% + ${isRight ? '' : '-'}${SIDE_OFFSET}em)`;
+          const x = `calc(-50% ${isRight ? '+' : '-'} ${SIDE_OFFSET_VW}vw)`;
+          const look = lookAt(depth + z);
 
           return (
             <article
               key={item.gallery_id}
               className={`gallery-tunnel__item ${isRight ? 'is-right' : ''}`}
-              style={{ transform: `translate3d(${x}, -50%, ${z}px)`, opacity: opacityAt(depth + z) }}
+              style={{ transform: `translate3d(${x}, -50%, ${z}px)`, ...look.style }}
             >
               <GalleryFrame src={item.image_url} alt={item.title} />
               <div className="gallery-tunnel__caption">
@@ -117,8 +136,8 @@ const GalleryTunnel = ({ items, startIndex = 0, onExit }) => {
           className="gallery-tunnel__end"
           style={{
             transform: `translate3d(-50%, -50%, ${endZ}px)`,
-            opacity: endOpacity,
-            pointerEvents: endOpacity > 0.6 ? 'auto' : 'none',
+            ...endLook.style,
+            pointerEvents: endLook.focus > 0.6 ? 'auto' : 'none',
           }}
         >
           <h2 className="gallery-tunnel__title">That&rsquo;s the whole gallery</h2>

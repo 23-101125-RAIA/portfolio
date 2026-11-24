@@ -11,10 +11,9 @@ const STRIP_H = (BOTTOM - TOP) / STRIPS;
 const PULL_RANGE = 450;
 const BEND_RANGE = 280;
 const TEAR_POINT = 0.55;
-const FLY_MS = 1000;
-const LEFT_DELAY_MS = 800;
-const LEFT_FALL_MS = 1500;
-const TEAR_NOTIFY_MS = 1300;
+const FLY_MS = 750;
+const LEFT_FALL_MS = 850;
+const TEAR_NOTIFY_MS = 700;
 
 const lineX = (y) => 1153 - 0.0594 * (y - 192);
 const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
@@ -56,7 +55,6 @@ const PeelTicket = ({ src, alt, onGrab, onTear }) => {
     const progressRef = useRef(0);
     const soundRef = useRef(null);
     const tearTimerRef = useRef(null);
-    const leftTimerRef = useRef(null);
 
     progressRef.current = progress;
 
@@ -125,17 +123,13 @@ const PeelTicket = ({ src, alt, onGrab, onTear }) => {
     const finish = useCallback(() => {
         pauseSound();
 
-        tween(progressRef.current, 1, 260, setProgress, () => {
+        tween(progressRef.current, 1, 200, setProgress, () => {
             stopSound();
 
             tearTimerRef.current = setTimeout(() => onTear?.(), TEAR_NOTIFY_MS);
 
             tween(0, 1, FLY_MS, setFly, null, 'fly', linear);
-
-            leftTimerRef.current = setTimeout(
-                () => tween(0, 1, LEFT_FALL_MS, setLeftFall, null, 'left', linear),
-                LEFT_DELAY_MS
-            );
+            tween(0, 1, LEFT_FALL_MS, setLeftFall, null, 'left', linear);
         });
     }, [tween, onTear, pauseSound, stopSound]);
 
@@ -150,7 +144,6 @@ const PeelTicket = ({ src, alt, onGrab, onTear }) => {
             stop();
             stopSound();
             clearTimeout(tearTimerRef.current);
-            clearTimeout(leftTimerRef.current);
         };
     }, [stopSound]);
 

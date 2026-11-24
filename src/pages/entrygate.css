@@ -1,7 +1,7 @@
 .bk {
     background-color: #FFF3DA;
     background-image: url('../assets/imgs/bg-pattern.png');
-    background-size: 100% auto;
+    background-size:  cover;
     background-position: top center;
     background-repeat: no-repeat;
     min-height: 100vh;
