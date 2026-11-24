@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { resumeMusic, suspendMusic } from '../compoents/common/bgMusic';
 import FlipRow from '../compoents/layout/FlipRow';
 import {
     BOTTOM_START_MS,
@@ -47,7 +48,10 @@ const Preloader = ({
             root.style.scrollBehavior = '';
         };
     }, []);
-
+useEffect(() => {
+    suspendMusic();
+    return () => resumeMusic();
+}, []);
     useEffect(() => {
         const audio = new Audio(flipSound);
         audio.preload = 'auto';

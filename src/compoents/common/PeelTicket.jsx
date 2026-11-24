@@ -12,8 +12,8 @@ const PULL_RANGE = 450;
 const BEND_RANGE = 280;
 const TEAR_POINT = 0.55;
 const FLY_MS = 1000;
-const LEFT_DELAY_MS = 450;
-const LEFT_FALL_MS = 1200;
+const LEFT_DELAY_MS = 800;
+const LEFT_FALL_MS = 1500;
 const TEAR_NOTIFY_MS = 1300;
 
 const lineX = (y) => 1153 - 0.0594 * (y - 192);
@@ -23,6 +23,8 @@ const linear = (t) => t;
 
 const STUB_CENTER_X = (lineX(BOTTOM) + W) / 2;
 const STUB_CENTER_Y = (TOP + BOTTOM) / 2;
+const LEFT_CENTER_X = lineX(BOTTOM) / 2;
+const LEFT_CENTER_Y = (TOP + BOTTOM) / 2;
 
 const makeEdge = () => {
     const points = [];
@@ -293,7 +295,14 @@ const PeelTicket = ({ src, alt, onGrab, onTear }) => {
 
     const flyOpacity = 1 - clamp((fly - 0.85) / 0.15, 0, 1);
 
-    const leftTransform = `translate(0 ${leftFall * leftFall * 1600})`;
+    const leftGravity = leftFall * leftFall;
+    const leftTilt = Math.pow(leftFall, 1.6);
+
+    const leftTransform = [
+        `translate(${-leftGravity * 140} ${leftGravity * 1800})`,
+        `rotate(${-leftTilt * 38} ${LEFT_CENTER_X} ${LEFT_CENTER_Y})`
+    ].join(' ');
+
     const leftOpacity = 1 - clamp((leftFall - 0.9) / 0.1, 0, 1);
 
     const tornEdge = edge

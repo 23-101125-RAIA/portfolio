@@ -1,0 +1,309 @@
+:root {
+  --gallery-bg: #fff4dd;
+  --gallery-green-light: #559e7b;
+  --gallery-green-dark: #1c573a;
+}
+
+.gallery-hero {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 616 / 660;
+  overflow: hidden;
+  container-type: inline-size;
+}
+
+.gallery-chandelier {
+  position: absolute;
+  top: 0;
+  left: 31.5%;
+  width: 37%;
+  height: auto;
+  object-fit: contain;
+  pointer-events: none;
+  z-index: 1;
+  transition: opacity 0.6s ease;
+}
+
+.gallery-intro {
+  position: absolute;
+  top: 24.5%;
+  left: 50%;
+  translate: -50% 0;
+  width: 34%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  z-index: 4;
+  transition: scale 0.9s ease, opacity 0.7s ease;
+}
+
+.gallery-intro__heading {
+  margin: 0;
+  font-weight: 400;
+}
+
+.gallery-intro__eyebrow,
+.gallery-intro__title {
+  display: block;
+  font-family: 'Aestera - Personal use', serif;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.gallery-intro__eyebrow {
+  color: var(--gallery-green-light);
+  font-size: max(18px, 2.1cqw);
+  text-transform: capitalize;
+}
+
+.gallery-intro__title {
+  color: var(--gallery-green-dark);
+  font-size: max(20px, 2.35cqw);
+}
+
+.gallery-intro__text {
+  max-width: 26cqw;
+  margin: 0.8cqw 0 0;
+  color: #000;
+  text-align: center;
+  font-family: 'Philosopher', serif;
+  font-size: max(13px, 1.25cqw);
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.389;
+}
+
+.gallery-intro__actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1cqw;
+  margin-top: 1.8cqw;
+}
+
+.gallery-frame {
+  display: block;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+}
+
+button.gallery-frame {
+  cursor: pointer;
+}
+
+.gallery-frame__img {
+  display: block;
+  width: 100%;
+  height: auto;
+  user-select: none;
+  filter: drop-shadow(0 0.6em 1em rgba(60, 40, 10, 0.25));
+}
+
+.gallery-hero__frame {
+  position: absolute;
+  z-index: 2;
+  rotate: var(--rot, 0deg);
+  transition:
+    translate 0.9s cubic-bezier(0.5, 0, 0.2, 1),
+    scale 0.9s cubic-bezier(0.5, 0, 0.2, 1),
+    rotate 0.4s ease,
+    opacity 0.8s ease;
+  animation: gallery-pop 0.8s ease backwards;
+  animation-delay: var(--delay, 0ms);
+}
+
+.gallery-hero__frame::before {
+  content: '';
+  position: absolute;
+  inset: -6%;
+}
+
+.gallery-hero__frame:hover {
+  scale: 1.06;
+  rotate: 0deg;
+  z-index: 5;
+}
+
+@keyframes gallery-pop {
+  from {
+    opacity: 0;
+    scale: 0.6;
+  }
+}
+
+.gallery-decor {
+  position: absolute;
+  height: auto;
+  pointer-events: none;
+  user-select: none;
+  rotate: var(--rot, 0deg);
+  animation: gallery-float var(--float-dur, 7s) ease-in-out var(--float-delay, 0s) infinite;
+  transition: opacity 0.6s ease;
+}
+
+@keyframes gallery-float {
+  0%,
+  100% {
+    translate: 0 0;
+  }
+  50% {
+    translate: 0 -0.8cqw;
+  }
+}
+
+.gallery-hero.is-entering .gallery-intro {
+  scale: 2.6;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.gallery-hero.is-entering .gallery-hero__frame {
+  translate: var(--fly-x) var(--fly-y);
+  scale: 2.2;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.gallery-hero.is-entering .gallery-decor,
+.gallery-hero.is-entering .gallery-chandelier {
+  opacity: 0;
+}
+
+.gallery-tunnel {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  overflow: hidden;
+  font-size: clamp(11px, 1.15vw, 18px);
+  background: var(--gallery-bg);
+  perspective: 1000px;
+  perspective-origin: 50% 42%;
+  animation: gallery-fade 0.45s ease both;
+}
+
+@keyframes gallery-fade {
+  from {
+    opacity: 0;
+  }
+}
+
+.gallery-tunnel__scene {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+}
+
+.gallery-tunnel__item {
+  position: absolute;
+  top: 44%;
+  left: 50%;
+  width: 46em;
+  display: flex;
+  align-items: center;
+  gap: 2.5em;
+  pointer-events: none;
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+}
+
+.gallery-tunnel__item.is-right {
+  flex-direction: row-reverse;
+  text-align: right;
+}
+
+.gallery-tunnel__item .gallery-frame {
+  flex: none;
+  width: 16em;
+}
+
+.gallery-tunnel__no {
+  margin: 0 0 0.4em;
+  color: var(--gallery-green-light);
+  font-family: 'Philosopher', serif;
+  font-size: 0.95em;
+  letter-spacing: 0.15em;
+}
+
+.gallery-tunnel__title {
+  margin: 0 0 0.2em;
+  color: var(--gallery-green-dark);
+  font-family: 'Aestera - Personal use', serif;
+  font-size: 2.8em;
+  font-weight: 400;
+  line-height: 1.1;
+}
+
+.gallery-tunnel__subtitle {
+  margin: 0 0 0.8em;
+  color: var(--gallery-green-light);
+  font-family: 'Philosopher', serif;
+  font-size: 1.3em;
+}
+
+.gallery-tunnel__desc {
+  max-width: 22em;
+  margin: 0;
+  color: #000;
+  font-family: 'Philosopher', serif;
+  font-size: 1.1em;
+  line-height: 1.5;
+}
+
+.gallery-tunnel__item.is-right .gallery-tunnel__desc {
+  margin-left: auto;
+}
+
+.gallery-tunnel__end {
+  position: absolute;
+  top: 46%;
+  left: 50%;
+  width: 30em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1em;
+  text-align: center;
+}
+
+.gallery-tunnel__hint {
+  position: absolute;
+  right: 0;
+  bottom: 1.8em;
+  left: 0;
+  margin: 0;
+  text-align: center;
+  color: var(--gallery-green-dark);
+  font-family: 'Philosopher', serif;
+  font-size: 1em;
+  pointer-events: none;
+}
+
+.gallery-tunnel__progress {
+  position: absolute;
+  right: 3em;
+  bottom: 0.8em;
+  left: 3em;
+  height: 3px;
+  background: rgba(28, 87, 58, 0.18);
+}
+
+.gallery-tunnel__progress i {
+  display: block;
+  height: 100%;
+  background: var(--gallery-green-dark);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gallery-decor,
+  .gallery-hero__frame {
+    animation: none;
+  }
+  .gallery-hero__frame,
+  .gallery-intro {
+    transition-duration: 0.01s;
+  }
+}

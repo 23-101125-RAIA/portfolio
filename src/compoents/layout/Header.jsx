@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { supabase } from '../../supabaseClient';
 import './Header.css';
@@ -7,14 +7,13 @@ import '../../genarel.css';
 import soundOnIcon from '../../assets/imgs/sound-on.png';
 import soundOffIcon from '../../assets/imgs/sound-off.png';
 import ticketImg from '../../assets/imgs/ticketheader.png';
-import bgMusic from '../../assets/audio/sonican-enchanted-fantasy-356791.mp3';
 import VintageButton from '../common/VintageButton';
+import { initMusic, toggleMusic, useMusicOn } from '../common/bgMusic';
 
 const Header = () => {
-  const audioRef = useRef(null);
   const [navLinks, setNavLinks] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
-  const [isPlaying, setIsPlaying] = useState(false);
+  const isPlaying = useMusicOn();
 
   useEffect(() => {
     const getNav = async () => {
@@ -33,57 +32,16 @@ const Header = () => {
   }, []);
 
   useEffect(() => {
-    const audio = audioRef.current;
-    if (!audio) return undefined;
-    audio.loop = true;
-    audio.volume = 0.4;
-
-    const removeListeners = () => {
-      document.removeEventListener('pointerdown', startOnInteraction);
-      document.removeEventListener('keydown', startOnInteraction);
-    };
-
-    function startOnInteraction(e) {
-      removeListeners();
-      if (e.target.closest && e.target.closest('.sound-btn')) return;
-      audio.play().then(() => setIsPlaying(true)).catch(() => {});
-    }
-
-    audio
-      .play()
-      .then(() => setIsPlaying(true))
-      .catch(() => {
-        document.addEventListener('pointerdown', startOnInteraction);
-        document.addEventListener('keydown', startOnInteraction);
-      });
-
-    return () => {
-      removeListeners();
-      audio.pause();
-    };
+    initMusic();
   }, []);
-
-  const toggleSound = () => {
-
-    const audio = audioRef.current;
-    if (!audio) return;
-    if (audio.paused) {
-      audio.play().then(() => setIsPlaying(true)).catch(() => {});
-    } else {
-      audio.pause();
-      setIsPlaying(false);
-    }
-  };
 
   return (
     <header className="site-header">
-      <audio ref={audioRef} src={bgMusic} preload="auto" />
-
       <div className="header-actions">
         <VintageButton to="/contact">Let&apos;s Talk</VintageButton>
         <button
           className="sound-btn"
-          onClick={toggleSound}
+          onClick={toggleMusic}
           aria-label={isPlaying ? 'Mute music' : 'Play music'}
         >
           <img src={isPlaying ? soundOnIcon : soundOffIcon} alt="" />

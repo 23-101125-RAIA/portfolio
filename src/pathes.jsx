@@ -13,6 +13,7 @@ import About from './pages/About';
 import Exhibition from './pages/Exhibition';
 import Timeline from './pages/Timeline';
 import Tools from './pages/Tools';
+import Gallery from './pages/Gallery';
 
 
 
@@ -27,7 +28,7 @@ const Routess = () => {
           <Route path="/" element={<Entrygate />} />
           <Route path="/preloader" element={<Preloader />} />
           <Route path="/error" element={<Error />} />
-          {/* <Route path="/gallery" element={<Gallery />} /> */}
+          <Route path="/gallery" element={<Gallery />} />
           {/* <Route path="/categories" element={<Categories />} /> */}
           <Route path="/timeline" element={<Timeline />} />
           {/* <Route path="/projects" element={<Projects />} /> */}
