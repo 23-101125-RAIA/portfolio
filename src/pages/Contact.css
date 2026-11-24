@@ -356,7 +356,7 @@
     }
 
     .contact-card {
-        width: min(920px, calc(var(--rw) * 0.64));
+        width: min(920px, calc(var(--rw) * 0.7));
     }
 
     .contact-seal {
@@ -394,6 +394,9 @@
     .contact-hand img {
         width: min(calc(var(--rw) * 0.24), 460px);
     }
+    
+.contact-form {    gap: 2.9cqw;
+}
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -107,4 +107,14 @@ body {
   #root ::-webkit-scrollbar {
     width: 8px;
   }
+
+  .preloader-lock #root,
+  #root.preloader-lock {
+    overflow: hidden;
+  }
+
+  #root:has(.preloader),
+  #root:has(.entrygate) {
+    overflow: hidden;
+  }
 }

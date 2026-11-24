@@ -12,6 +12,7 @@ import Contact from './pages/Contact';
 import About from './pages/About';
 import Exhibition from './pages/Exhibition';
 import Timeline from './pages/Timeline';
+import Tools from './pages/Tools';
 
 
 
@@ -31,7 +32,7 @@ const Routess = () => {
           <Route path="/timeline" element={<Timeline />} />
           {/* <Route path="/projects" element={<Projects />} /> */}
           {/* <Route path="/project-details" element={<ProjectDetails />} /> */}
-          {/* <Route path="/tools" element={<Tools />} /> */}
+          <Route path="/tools" element={<Tools/>} />
           <Route path="/experiments" element={<Code />} />
           <Route path="/about" element={<About />} />
           <Route path="/exhibition" element={<Exhibition />} />

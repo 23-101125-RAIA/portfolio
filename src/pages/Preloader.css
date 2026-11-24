@@ -313,6 +313,9 @@
 
 @media (min-width: 320px) and (max-width: 1365px) {
     .preloader {
+        top: 0;
+        left: 0;
+        width: var(--rw);
         height: var(--rh);
     }
 

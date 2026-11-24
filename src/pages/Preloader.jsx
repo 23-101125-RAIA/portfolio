@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import FlipRow from '../compoents/layout/FlipRow';
 import {
@@ -29,6 +29,21 @@ const Preloader = ({
     const finishedRows = useRef(0);
     const timerRef = useRef(null);
     const standalone = !onComplete;
+
+    useLayoutEffect(() => {
+        const root = document.getElementById('root');
+
+        if (!root) {
+            return undefined;
+        }
+
+        root.style.scrollBehavior = 'auto';
+        root.scrollTop = 0;
+
+        return () => {
+            root.style.scrollBehavior = '';
+        };
+    }, []);
 
     useEffect(() => {
         return () => clearTimeout(timerRef.current);
@@ -79,8 +94,6 @@ const Preloader = ({
                 alt=""
                 draggable={false}
             />
-
-           
 
             <div className="preloader-center">
                 <img

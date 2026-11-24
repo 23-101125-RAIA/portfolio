@@ -2,7 +2,7 @@
   position: relative;
   width: 100%;
   overflow-x: hidden;
-  padding: 200px  100px 50px ;
+  padding: 200px 100px 50px;
 }
 
 .exhibition-head {
@@ -73,7 +73,8 @@
 }
 
 .exhibition-title {
- font-family: Philosopher, serif;  color: #1C573A;
+  font-family: Philosopher, serif;
+  color: #1C573A;
   font-size: 50px;
   font-style: normal;
   font-weight: 700;
@@ -283,61 +284,7 @@
   }
 }
 
-@media (max-width: 1000px) {
-  .exhibition-page-title {
-    font-size: 46px;
-  }
-
-  .exhibition-title {
-    font-size: 34px;
-  }
-
-  .exhibition-page-subtitle,
-  .exhibition-description {
-    font-size: 20px;
-  }
-
-  .exhibition-meta {
-    font-size: 18px;
-  }
-}
-
-@media (max-width: 800px) {
-  .exhibition-block,
-  .exhibition-block.reversed {
-    flex-direction: column;
-    gap: 24px;
-  }
-
-  .exhibition-text,
-  .exhibition-block.reversed .exhibition-text {
-    flex: none;
-    padding: 0 24px;
-  }
-
-  .frame-wrap {
-    flex: none;
-    width: 92%;
-  }
-
-  .frame-right {
-    align-self: flex-end;
-    margin-right: -50px;
-  }
-
-  .frame-left {
-    align-self: flex-start;
-    margin-left: -50px;
-  }
-
-  .feather-row {
-    min-height: 240px;
-  }
-
-  .feather-divider img {
-    width: 150px;
-  }
-}.frame-wrap {
+.frame-wrap {
   --frame-width: 46%;
   --frame-pull: -300px;
   position: relative;
@@ -357,4 +304,107 @@
   margin-right: auto;
   margin-left: var(--frame-pull);
   transform: translateX(-120%);
+}
+
+@media (min-width: 320px) and (max-width: 1365px) {
+  .exhibition-page {
+    padding: calc(200 * var(--u)) calc(100 * var(--u)) calc(50 * var(--u));
+  }
+
+  .exhibition-head {
+    max-width: calc(900 * var(--u));
+    margin: 0 auto calc(30 * var(--u));
+    padding: 0 calc(20 * var(--u));
+  }
+
+  .exhibition-page-title {
+    font-size: max(10px, calc(60 * var(--u)));
+    margin: 0 0 calc(16 * var(--u));
+  }
+
+  .exhibition-page-subtitle {
+    font-size: max(10px, calc(24 * var(--u)));
+  }
+
+  .exhibition-title {
+    font-size: max(10px, calc(50 * var(--u)));
+    margin: 0 0 calc(18 * var(--u));
+  }
+
+  .exhibition-meta {
+    font-size: max(10px, calc(22 * var(--u)));
+    margin: 0 0 calc(18 * var(--u));
+  }
+
+  .exhibition-description {
+    font-size: max(10px, calc(24 * var(--u)));
+  }
+
+  .frame-wrap {
+    --frame-pull: calc(-300 * var(--u));
+  }
+
+  .feather-row {
+    min-height: calc(440 * var(--u));
+  }
+
+  .feather-divider img {
+    width: calc(330 * var(--u));
+  }
+
+  @keyframes hintRight {
+    0%,
+    100% {
+      transform: translateX(0);
+    }
+    35% {
+      transform: translateX(calc(-30 * var(--u)));
+    }
+    55% {
+      transform: translateX(calc(8 * var(--u)));
+    }
+    75% {
+      transform: translateX(calc(-30 * var(--u)));
+    }
+  }
+
+  @keyframes hintLeft {
+    0%,
+    100% {
+      transform: translateX(0);
+    }
+    35% {
+      transform: translateX(calc(30 * var(--u)));
+    }
+    55% {
+      transform: translateX(calc(-8 * var(--u)));
+    }
+    75% {
+      transform: translateX(calc(30 * var(--u)));
+    }
+  }
+
+  @keyframes swingDown {
+    0% {
+      transform: scaleX(-1) rotate(-7deg) translateY(calc(-26 * var(--u)));
+    }
+    50% {
+      transform: scaleX(-1) rotate(7deg) translateY(calc(26 * var(--u)));
+    }
+    100% {
+      transform: scaleX(-1) rotate(-7deg) translateY(calc(-26 * var(--u)));
+    }
+  }
+
+  @keyframes swingUp {
+    0% {
+      transform: rotate(7deg) translateY(calc(26 * var(--u)));
+    }
+    50% {
+      transform: rotate(-7deg) translateY(calc(-26 * var(--u)));
+    }
+    100% {
+      transform: rotate(7deg) translateY(calc(26 * var(--u)));
+    }
+  }
 }

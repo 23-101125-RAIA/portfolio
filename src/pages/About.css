@@ -47,9 +47,8 @@
 
 .about-flower {
   position: absolute;
-    top: 260px;
-    width: 410px;
-
+  top: 260px;
+  width: 410px;
   z-index: 1;
   pointer-events: none;
 }
@@ -82,7 +81,6 @@
 
 .about-ribbon {
   position: absolute;
- 
   width: 760px;
   z-index: 0;
   pointer-events: none;
@@ -96,13 +94,13 @@
 
 .about-ribbon--left {
   left: 0;
-   top: 55%;
+  top: 55%;
   animation: slideFromLeft 1.3s cubic-bezier(0.2, 0.8, 0.2, 1) 0.9s both;
 }
 
 .about-ribbon--right {
   right: 0;
-   top: 52%;
+  top: 52%;
   animation: slideFromRight 1.3s cubic-bezier(0.2, 0.8, 0.2, 1) 0.9s both;
 }
 
@@ -227,13 +225,13 @@
 
 .about-values__subtitle {
   margin: 0 0 80px;
-color: #000;
-text-align: center;
-font-family: Philosopher;
-font-size: 24px;
-font-style: normal;
-font-weight: 400;
-line-height: normal;;
+  color: #000;
+  text-align: center;
+  font-family: Philosopher;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
   opacity: 0;
 }
 
@@ -472,6 +470,186 @@ line-height: normal;;
   76% { transform: rotateY(18deg) translateY(-4px); }
   85% { transform: rotateY(-10deg); }
   93% { transform: rotateY(4deg); }
+}
+
+@media (min-width: 320px) and (max-width: 1365px) {
+  .about {
+    padding-bottom: calc(140 * var(--u));
+  }
+
+  .about-hero {
+    --locket-width: calc(380 * var(--u));
+    --hero-padding: calc(200 * var(--u));
+    padding: var(--hero-padding) calc(16 * var(--u)) 0;
+  }
+
+  .about-locket {
+    padding-bottom: calc(30 * var(--u));
+  }
+
+  .about-locket__swing {
+    margin-top: calc(-120 * var(--u));
+    filter: drop-shadow(0 calc(14 * var(--u)) calc(14 * var(--u)) rgba(40, 25, 5, 0.3));
+  }
+
+  .about-flower {
+    top: calc(260 * var(--u));
+    width: calc(410 * var(--u));
+  }
+
+  .about-ribbon {
+    width: calc(760 * var(--u));
+  }
+
+  .about-title-wrap {
+    margin: calc(10 * var(--u)) 0 0;
+  }
+
+  .about-title {
+    font-size: max(10px, calc(70 * var(--u)));
+  }
+
+  .about-star {
+    width: calc(60 * var(--u));
+  }
+
+  .about-star--left {
+    left: calc(-76 * var(--u));
+    bottom: calc(-26 * var(--u));
+  }
+
+  .about-star--right {
+    right: calc(-70 * var(--u));
+    top: calc(-30 * var(--u));
+  }
+
+  .about-frame {
+    width: calc(1100 * var(--u));
+    margin-top: calc(-71 * var(--u));
+    padding: calc(190 * var(--u)) calc(150 * var(--u));
+  }
+
+  .about-frame__paper {
+    box-shadow: inset 0 0 calc(30 * var(--u)) rgba(120, 80, 20, 0.25);
+  }
+
+  .about-frame__content {
+    gap: calc(32 * var(--u));
+  }
+
+  .about-frame__text {
+    font-size: max(10px, calc(20 * var(--u)));
+  }
+
+  .about-frame__actions {
+    gap: calc(24 * var(--u));
+  }
+
+  .about-values {
+    margin-top: calc(130 * var(--u));
+    padding: 0 calc(16 * var(--u));
+  }
+
+  .about-values__title {
+    margin: 0 0 calc(16 * var(--u));
+    font-size: max(10px, calc(45 * var(--u)));
+  }
+
+  .about-values__subtitle {
+    margin: 0 0 calc(80 * var(--u));
+    font-size: max(10px, calc(24 * var(--u)));
+  }
+
+  .about-cards {
+    gap: calc(48 * var(--u));
+  }
+
+  .about-card {
+    width: calc(360 * var(--u));
+    perspective: calc(1400 * var(--u));
+  }
+
+  .about-card--1,
+  .about-card--3 {
+    margin-top: calc(64 * var(--u));
+  }
+
+  .about-card:hover .about-card__tilt,
+  .about-card:focus .about-card__tilt {
+    transform: translateY(calc(-10 * var(--u))) scale(1.03);
+  }
+
+  .about-card__back {
+    gap: calc(14 * var(--u));
+    padding: calc(30 * var(--u));
+    border: max(3px, calc(7 * var(--u))) solid var(--gold);
+    border-radius: calc(24 * var(--u));
+    box-shadow: 0 calc(10 * var(--u)) calc(22 * var(--u)) rgba(60, 35, 5, 0.3);
+  }
+
+  .about-card__icon {
+    width: calc(114 * var(--u));
+  }
+
+  .about-card__title {
+    font-size: max(10px, calc(30 * var(--u)));
+  }
+
+  .about-card__text {
+    font-size: max(10px, calc(16 * var(--u)));
+  }
+
+  @keyframes flowerSway {
+    from { transform: translateY(0) rotate(0deg); }
+    to { transform: translateY(calc(-18 * var(--u))) rotate(1.8deg); }
+  }
+
+  @keyframes slideFromLeft {
+    from { opacity: 0; transform: translateX(calc(-120 * var(--u))); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+
+  @keyframes slideFromRight {
+    from { opacity: 0; transform: translateX(calc(120 * var(--u))); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+
+  @keyframes fadeDown {
+    from { opacity: 0; transform: translateY(calc(-40 * var(--u))); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(calc(40 * var(--u))); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes framePop {
+    from { opacity: 0; transform: translateY(calc(40 * var(--u))) scale(0.85); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+  }
+
+  @keyframes cardFromLeft {
+    from { opacity: 0; transform: translateX(calc(-140 * var(--u))) rotate(-8deg); }
+    to { opacity: 1; transform: translateX(0) rotate(0deg); }
+  }
+
+  @keyframes cardFromRight {
+    from { opacity: 0; transform: translateX(calc(140 * var(--u))) rotate(8deg); }
+    to { opacity: 1; transform: translateX(0) rotate(0deg); }
+  }
+
+  @keyframes cardPop {
+    from { opacity: 0; transform: translateY(calc(70 * var(--u))) scale(0.7); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+  }
+
+  @keyframes cardHint {
+    0%, 68%, 100% { transform: rotateY(0deg); }
+    76% { transform: rotateY(18deg) translateY(calc(-4 * var(--u))); }
+    85% { transform: rotateY(-10deg); }
+    93% { transform: rotateY(4deg); }
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

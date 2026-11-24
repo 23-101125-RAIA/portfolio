@@ -3,9 +3,19 @@
   display: grid;
   grid-template-columns: minmax(0, 1fr);
   width: 100%;
+  margin-top: auto;
   overflow: hidden;
   font-family: 'Philosopher', serif;
   color: #fff;
+}
+
+*:has(> .site-footer) {
+  display: flex;
+  flex-direction: column;
+}
+
+*:has(> .site-footer) > * {
+  flex-shrink: 0;
 }
 
 .footer-flowers {
